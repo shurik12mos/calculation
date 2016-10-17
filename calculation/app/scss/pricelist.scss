@@ -1,0 +1,196 @@
+
+#pricelist {
+		margin-top: 30px;
+		background-color: #fafafa;
+		min-height: 100vh;		
+		
+		.spinner {
+			position: absolute;
+			width: 42px;
+			height: 42px;
+			text-align: center;
+			color: #888;
+			top: 0px;
+			right: 0px;
+			bottom: 0px;
+			left: 0px;
+			margin: auto;
+			animation: rotate 2s linear infinite;
+			transform-origin: center center;
+			
+			i {
+				font-size: 36px;
+				line-height: 42px;
+			}
+		}
+		
+		@keyframes rotate {
+			0% {
+				transform: rotate(0deg);
+			}			
+			
+			50% {
+				transform: rotate(180deg);
+			}
+			
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+		
+		.panel-heading, .panel, .panel-content {
+			padding: 0px;			
+			margin: 0px;			
+			border: none;
+			background-color: #fff;
+		}
+		
+		.category.checked>.panel-heading>h4 {			
+					background-color: #43b4de;
+					color: rgb(255, 255, 255);					
+		}
+		
+		.section {
+			overflow: hidden;			
+		}
+		
+		.panel.checked .panel-content {
+					
+		}	
+	
+		.category {	
+			border: 1px solid rgb(238, 238, 238);			
+			margin-top: 10px;
+			position: relative;			
+			overflow: hidden;			
+			
+			h4 {
+				display: block;
+				padding-bottom: 20px;
+				padding-top: 20px;
+				background-color: #fff;			
+				text-align: center;
+				font-size: 14px;
+				font-family: "Raleway";
+				color: rgb(51, 51, 51);
+				font-weight: bold;
+				text-transform: uppercase;
+				line-height: 1.2;
+				width: 100%;
+				line-height: 100%;
+				cursor: pointer;
+				transition: all 0.3s ease-out;
+				
+				&:hover {
+					background-color: #43b4de;
+					color: rgb(255, 255, 255);				
+				}
+				
+				&.checked {
+					background-color: #43b4de;
+					color: rgb(255, 255, 255);	
+				}
+			}
+			
+			a:hover, a:focus, a:visited { 
+				text-decoration: none;
+			}
+		}
+		
+		.section {
+			border: 1px solid rgb(238, 238, 238);			
+			margin-top: 5px;
+			
+			h4 {
+				display: block;
+				padding: 10px 15px;				
+				background-color: #fff;			
+				text-align: left;
+				font-size: 16px;
+				font-family: "Raleway";
+				color: rgb(51, 51, 51);					
+				line-height: 1.2;
+				width: 100%;
+				line-height: 100%;
+				
+				&:hover {
+					background-color: #999;
+					color: rgb(255, 255, 255);				
+				}
+				
+				&:hover, &:focus, &:visited { 
+					text-decoration: none;
+				}
+				
+				&[aria-expanded="true"] {
+					background-color: #999;
+					color: rgb(255, 255, 255);	
+				}
+			}			
+		}
+		
+		.job {
+			display: block;
+			overflow: auto;
+			padding: 7px 10px;				
+			background-color: #fff;			
+			text-align: left;
+			font-size: 14px;
+			font-family: "Raleway";
+			color: rgb(51, 51, 51);					
+			line-height: 1.2;
+			cursor: pointer;
+			transition: opacity 1s ease-out;
+			position: relative;
+			
+			span {
+				opacity: 0;
+				color: #00d800;
+				position: absolute !important;
+				top: 50%;
+				display: block;
+				width: 15px;
+				height: 15px;	
+				margin-top: -7.5px;
+			}
+				
+			&:hover {
+				background-color: rgba(221,221,221,0.3);				
+			}
+			
+			>div {
+				&:after {
+					clear: both;
+				}
+			}
+			
+			&.checked {
+				background-color: rgba(0,216,0,0.12);
+				
+				span {
+					animation: checkedJobIn .5s ease-out alternate;
+					animation-fill-mode: both;
+				
+					@keyframes checkedJobIn {
+					  0% {
+						opacity: 0;
+					  }
+					  
+					  100% {
+						opacity: 1;
+					  }
+					}									
+				}
+				
+				.jobName {
+					
+				}
+			}
+			
+			.jobName {
+				padding-left: 20px;
+				position: relative;
+			}
+		}
+		
+	}

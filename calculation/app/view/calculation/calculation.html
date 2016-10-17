@@ -1,1 +1,137 @@
 <p>This is the partial for calculation.</p>
+
+<div role="tabpanel" class="tab-pane" id="calc">
+			<div class = "head col-sm-12">
+				<div class="head_info">
+					<span>Номер КП</span>
+					<input class="info_input" type = "text"></input>
+				</div>
+				<div class="head_info">
+					<span>Заказчик</span>
+					<input class="info_input" type = "text"></input>
+				</div>
+				<div class="head_info">
+					<span>Адрес</span>
+					<input class="info_input" type = "text"></input>
+				</div>
+				<div class="head_info">
+					<span>Телефон</span>
+					<input class="info_input" type = "tel"></input>
+				</div>
+				<div class="head_info">
+					<span>Составил</span>
+					<input class="info_input" type = "text"></input>
+				</div>
+				<div class="head_info">
+					<span>Менеджер</span>
+					<input class="info_input" type = "text"></input>
+				</div>
+				<div class="head_info">
+					<span>Проектировщик</span>
+					<input class="info_input" type = "text"></input>
+				</div>
+				<div class="head_info">
+					<span>Другая информация</span>
+					<textarea class="info_input" type = "text" cols="10"></textarea>
+				</div>				
+			</div>
+			<div class="prices col-sm-12">
+				<div class="sum jobs_sum right">
+					<span>Монтажные работы: </span>
+					<span class="price">0</span>
+					<span>грн</span>
+				</div>	
+				<div class="sum mat_sum right">
+					<span>Материалы: </span>
+					<span class="price">0</span>
+					<span>грн</span>
+				</div>
+				<div class="sum all_sum right">
+					<span>Всего: </span>
+					<span class="price">0</span>
+					<span>грн</span>
+				</div>
+			</div>
+			
+			<div class="jobs_table table_calc col-sm-12">
+				<h3>Строительно-монтажные работы</h3>
+				<div class = "add_row">
+					<button type="button" class="btn btn-xs btn-primary" ng-click="calculation.addJob()">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					</button>
+				</div>
+				<div class="human-hour">
+					<span>Всего чел*ч: </span>
+					<span class="sum_human_hour"></span>
+				</div>				
+				<table>
+					<tr class="head_table">
+						<th>№</th>
+						<th>Наименование</th>
+						<th>ед.изм.</th>
+						<th>кол-во</th>
+						<th>ст.ед., грн</th>
+						<th>сумма, грн</th>
+					</tr>
+					<tr class="job" ng-repeat="job in calculation.jobs" ng-keyup="calculation.keyup($event)">
+						<td>{{job.index}}</td>
+						<td><input type = "text" ng-model="job.name"/></td>
+						<td><input type = "text" ng-model="job.measure"/></td>
+						<td><input type = "text" ng-model="job.number" ng-blur="calculation.sumJob(job)"/></td>
+						<td><input type = "text" ng-model="job.price"  ng-blur="calculation.sumJob(job)"/></td>
+						<td>{{job.sum}}</td>
+					</tr>
+					<tr class="jobs_reserve">
+						<td></td>
+						<td colspan = '4'>Запас на работы (не используемая часть возвращается)</td>
+						<td>0</td>
+					</tr>
+					<tr class="jobs_sum">
+						<td></td>
+						<td colspan = '4'>Итого строительно-монтажные и пусконаладочные работы, грн</td>
+						<td>0</td>
+					</tr>
+				</table>
+			</div>
+			<div class="materials_table table_calc col-sm-12">
+				<h3>Материалы</h3>
+				<div class = "add_row">
+					<button type="button" class="btn btn-xs btn-primary">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					</button>
+				</div>
+				<table>
+					<tr class="head_table">
+						<th>№</th>
+						<th>Наименование</th>
+						<th>ед.изм.</th>
+						<th>кол-во</th>
+						<th>ст.ед., грн</th>
+						<th>сумма, грн</th>
+					</tr>
+					<tr class="emty_row">
+						<td>1</td>
+						<td contenteditable></td>
+						<td contenteditable></td>
+						<td contenteditable></td>
+						<td contenteditable></td>
+						<td>0</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td colspan = '4'>Запас на материалы (не используемая часть возвращается), грн</td>
+						<td>0</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td colspan = '4'>Расходы по оформлению и доставке материалов, грн</td>
+						<td>0</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td colspan = '4'>Итого материалы, грн</td>
+						<td>0</td>
+					</tr>
+				</table>
+			</div>
+		</div>

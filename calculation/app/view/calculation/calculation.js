@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('appCalc.calculation', ['ngRoute'])
+angular.module('appCalc.calculation', ['ngRoute', 'appCalc.calculationService'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/view/calculation', {
@@ -9,6 +9,6 @@ angular.module('appCalc.calculation', ['ngRoute'])
   });
 }])
 
-.controller('CalculationCtrl', [function() {
-
+.controller('CalculationCtrl', ['$scope', 'Calculation', function($scope, Calculation) {
+	$scope.calculation = Calculation;
 }]);

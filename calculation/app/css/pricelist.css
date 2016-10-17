@@ -1,0 +1,156 @@
+#pricelist {
+  margin-top: 30px;
+  background-color: #fafafa;
+  min-height: 100vh; }
+  #pricelist .spinner {
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    text-align: center;
+    color: #888;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    margin: auto;
+    -webkit-animation: rotate 2s linear infinite;
+    animation: rotate 2s linear infinite;
+    -webkit-transform-origin: center center;
+    -ms-transform-origin: center center;
+    transform-origin: center center; }
+    #pricelist .spinner i {
+      font-size: 36px;
+      line-height: 42px; }
+
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  50% {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
+@keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  50% {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+  #pricelist .panel-heading, #pricelist .panel, #pricelist .panel-content {
+    padding: 0px;
+    margin: 0px;
+    border: none;
+    background-color: #fff; }
+  #pricelist .category.checked > .panel-heading > h4 {
+    background-color: #43b4de;
+    color: white; }
+  #pricelist .section {
+    overflow: hidden; }
+  #pricelist .category {
+    border: 1px solid #eeeeee;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden; }
+    #pricelist .category h4 {
+      display: block;
+      padding-bottom: 20px;
+      padding-top: 20px;
+      background-color: #fff;
+      text-align: center;
+      font-size: 14px;
+      font-family: "Raleway";
+      color: #333333;
+      font-weight: bold;
+      text-transform: uppercase;
+      line-height: 1.2;
+      width: 100%;
+      line-height: 100%;
+      cursor: pointer;
+      -webkit-transition: all 0.3s ease-out;
+      transition: all 0.3s ease-out; }
+      #pricelist .category h4:hover {
+        background-color: #43b4de;
+        color: white; }
+      #pricelist .category h4.checked {
+        background-color: #43b4de;
+        color: white; }
+    #pricelist .category a:hover, #pricelist .category a:focus, #pricelist .category a:visited {
+      text-decoration: none; }
+  #pricelist .section {
+    border: 1px solid #eeeeee;
+    margin-top: 5px; }
+    #pricelist .section h4 {
+      display: block;
+      padding: 10px 15px;
+      background-color: #fff;
+      text-align: left;
+      font-size: 16px;
+      font-family: "Raleway";
+      color: #333333;
+      line-height: 1.2;
+      width: 100%;
+      line-height: 100%; }
+      #pricelist .section h4:hover {
+        background-color: #999;
+        color: white; }
+      #pricelist .section h4:hover, #pricelist .section h4:focus, #pricelist .section h4:visited {
+        text-decoration: none; }
+      #pricelist .section h4[aria-expanded="true"] {
+        background-color: #999;
+        color: white; }
+  #pricelist .job {
+    display: block;
+    overflow: auto;
+    padding: 7px 10px;
+    background-color: #fff;
+    text-align: left;
+    font-size: 14px;
+    font-family: "Raleway";
+    color: #333333;
+    line-height: 1.2;
+    cursor: pointer;
+    -webkit-transition: opacity 1s ease-out;
+    transition: opacity 1s ease-out;
+    position: relative; }
+    #pricelist .job span {
+      opacity: 0;
+      color: #00d800;
+      position: absolute !important;
+      top: 50%;
+      display: block;
+      width: 15px;
+      height: 15px;
+      margin-top: -7.5px; }
+    #pricelist .job:hover {
+      background-color: rgba(221, 221, 221, 0.3); }
+    #pricelist .job > div:after {
+      clear: both; }
+    #pricelist .job.checked {
+      background-color: rgba(0, 216, 0, 0.12); }
+      #pricelist .job.checked span {
+        -webkit-animation: checkedJobIn .5s ease-out alternate;
+        animation: checkedJobIn .5s ease-out alternate;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both; }
+
+@-webkit-keyframes checkedJobIn {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+@keyframes checkedJobIn {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+    #pricelist .job .jobName {
+      padding-left: 20px;
+      position: relative; }

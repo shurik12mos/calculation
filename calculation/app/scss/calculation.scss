@@ -1,0 +1,137 @@
+#calc {
+	.right {
+		float: right;
+		overflow: auto;
+		clear: right;
+	}
+
+	.head {
+		user-select: none;
+		.head_info{
+			margin-top: 10px;
+			
+			span {
+				display: inline-block;
+				width: 200px;
+			}
+			
+			.info_input {
+				border: none;
+				border-bottom: 1px solid #000;
+				display: inline-block;
+				margin-left: 20px;
+				background-color: #fafafa;
+				min-width: 200px;
+				max-width: 70%;
+			}
+			
+			textarea.info_input {
+				border: 1px solid #000;
+				border-radius: 5px;
+				min-width: 300px;
+			}
+		}
+	}
+	
+	.prices {
+		user-select: none;
+		margin: 20px auto;
+		font-size: 16px;
+		font-weight: bold;
+		
+		.sum {
+			display: block;
+			margin-top: 10px;
+			width: 500px;
+			
+			span {
+				display: inline-block;
+				margin: 0px 5px;				
+			}
+			
+			span:first-child {
+				min-width: 150px;
+			}
+			
+			.price {
+				border-bottom: 2px solid #000;
+				min-width: 100px;
+			}
+		}
+	}
+	
+	.table_calc {
+		max-width: 80%;
+		margin-left: 10%;
+		margin-right: 10%;
+		margin-bottom: 15px;
+		
+		h3 {
+			text-align: center;
+			font-size: 18px;
+			font-weight: bold;
+		}
+		
+		.add_row {
+			font-size: 20px;
+			color: #aaa;
+			float: right;
+			clear: both;
+			overflow: hidden;
+			
+			span {
+				display: block;
+				padding: 5px;
+				top: 0px;
+			}
+		}
+		
+		.human-hour {
+			float: right;
+			clear: right;
+			overflow: hidden;
+			min-width: 50px;
+			
+			span {
+				display: inline-block;				
+				text-align: right;
+				font-size: 14px;				
+				margin-bottom: 0px;
+				min-width: 20px;
+				min-height: 14px;
+			}
+		}
+		
+		
+				
+		table {
+			text-align: left;
+			min-width: 100%;
+			margin: 0px auto;
+			
+			td, th {
+				min-width: 70px;
+				border: 1px solid #000;
+				padding: 2px 5px;
+			}
+			
+			td:nth-child(1), th:nth-child(1) {
+				text-align: center;
+				min-width: 30px;
+			}
+			
+			td:nth-child(2), th:nth-child(2) {
+				width: 50%;
+			}
+			
+			input, textarea {
+				border: none;
+				outline: none;
+				background-color: #fff;
+				width: 100%;
+				overflow-y: visible;
+				height: 100%;
+			}
+		}
+	}
+}

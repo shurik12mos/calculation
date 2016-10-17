@@ -1,2 +1,49 @@
-<p>This is the partial for pricelist.</p>
 
+<div class="col-sm-12" id="pricelist">
+	<div class="spinner" ng-hide="load">
+		<i class="glyphicon glyphicon-refresh" aria-hidden="true"></i>
+	</div>	
+	<div class="panel category" ng-repeat="category in pricelist.pricelist" ng-class="{checked: category.checked}" 
+	ng-click="pricelist.checkedCategory($event, category)">
+		<div class="panel-heading">
+			<h4>
+				{{category.code}}. {{category.name}}
+			</h4>
+		</div>
+		<div class="panel-content">
+			<div class="panel section" ng-repeat="section in category" ng-class="{checked: section.checked}" ng-show="category.checked && section.length" 
+				ng-click="pricelist.checkedSection($event, section, category)">
+				<div class="panel-heading">
+					<h4>
+						{{section.code}}. {{section.name}}
+					</h4>
+				</div>
+				<div class="panel-content" ng-show="section.checked">
+					<div class="job row" ng-repeat="job in section" ng-click = "$event.stopPropagation()">
+						<div class="col-sm-2 job-checkbox">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" ng-model="job.checkedInstall" ng-click="pricelist.checkedJobInstall($event, job)"> Монтаж
+								</label>
+							</div>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" ng-model="job.checkedUnistall"  ng-click="pricelist.checkedJobUninsatal($event, job)"> Демонтаж
+								</label>
+							</div>
+						</div>
+						<div class="col-sm-6 job-name">
+							{{job.code}}. {{job.name}}
+						</div>
+						<div class="col-sm-2 job-measure">
+							{{job.measure}}
+						</div>
+						<div class="col-sm-2 job-price">
+							{{job.price}} грн
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
