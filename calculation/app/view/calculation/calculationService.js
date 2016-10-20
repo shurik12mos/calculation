@@ -1,4 +1,4 @@
-"use strickt";
+"use strict";
 
 var app = angular.module('appCalc.calculationService', []);
 
