@@ -2,12 +2,10 @@
 
 var app = angular.module('appCalc.pricelistService', ['ngResource', 'ngRoute', 'appCalc.googleSheet', 'appCalc.calculationService']);
 
-app.service('Pricelist', function($resource, GetGoogleSheet, Calculation){
-	console.log("start Pricelist", GetGoogleSheet);
+app.service('Pricelist', function($resource, GetGoogleSheet, Calculation){	
 	var pricelist;
 	
-	this.init = function(data) {
-		console.log("this in init", this);
+	this.init = function(data) {		
 		if (!this.pricelist) {
 			pricelist = data;
 			this.pricelist = data;
@@ -43,8 +41,7 @@ app.service('Pricelist', function($resource, GetGoogleSheet, Calculation){
 	}
 	
 	this.checkedJobUninsatal = function(event, job) {
-		event.stopPropagation();
-		console.log("job name before", job, job.checkedUnistall);
+		event.stopPropagation();		
 		job = angular.copy(job);
 		job.name = job.name.replace(/монтаж/i, "Демонтаж");	
 		job.name = job.name.replace(/изготовление/i, "Демонтаж");		
@@ -52,7 +49,7 @@ app.service('Pricelist', function($resource, GetGoogleSheet, Calculation){
 		job.name = job.name.replace(/прокладка/i, "Демонтаж");		
 		job.name = job.name.replace(/затягивание/i, "Демонтаж");
 		if (job.checkedUnistall) {							
-			console.log("job name after", job);
+			job.human_hour = 0.4*job.human_hour;
 			Calculation.addJob(job);
 		} else {
 			Calculation.deleteJob(job);
@@ -60,11 +57,9 @@ app.service('Pricelist', function($resource, GetGoogleSheet, Calculation){
 	}
 	
 	this.checkedJobInstall = function(event, job) {
-		event.stopPropagation();
-		console.log("job name before", job);
+		event.stopPropagation();		
 		job = angular.copy(job);
-		if (job.checkedInstall) {
-			console.log("checkedIstall");
+		if (job.checkedInstall) {			
 			Calculation.addJob(job);
 		} else {
 			Calculation.deleteJob(job);

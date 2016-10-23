@@ -11,4 +11,5 @@ angular.module('appCalc.calculation', ['ngRoute', 'appCalc.calculationService'])
 
 .controller('CalculationCtrl', ['$scope', 'Calculation', function($scope, Calculation) {
 	$scope.calculation = Calculation;
+	$scope.calculation.calculate();
 }]);

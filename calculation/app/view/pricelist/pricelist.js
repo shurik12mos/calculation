@@ -10,14 +10,11 @@ var app = angular.module('appCalc.pricelist', ['ngResource', 'ngRoute', 'appCalc
 }])
 
 .controller('PricelistCtrl', ['GetGoogleSheet', '$scope', 'Pricelist', function(GetGoogleSheet, $scope, Pricelist) {
-	var price ;
-	console.log("$scope", $scope, 'GetGoogleSheet', GetGoogleSheet, 'Pricelist', Pricelist);
-	if (!Pricelist.pricelist) {
-		console.log('error');
+	var price ;	
+	if (!Pricelist.pricelist) {		
 		price = GetGoogleSheet.get(function(success){
 			Pricelist.init(success.price);
-			$scope.pricelist = Pricelist;
-			
+			$scope.pricelist = Pricelist;			
 		}, function(error){
 			console.log('error', error);
 		});

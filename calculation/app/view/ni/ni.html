@@ -1,7 +1,28 @@
-<div class="ni-block">
-	<div class="col-sm-4">З/п в общепроизводственных расходах (бригадир) от чел*час</div>	
-	<div class="col-sm-2 ni_default">{{ni.salaryBrigadier.defaultPercent}}</div>
-	<div class="col-sm-2 ni_default">{{ni.salaryBrigadier.measure}}</div>
-	<div class="col-sm-2 ni_change"><input class="info_input" type = "text" ng-model="ni.salaryBrigadier.percent"></input></div>
-	<div class="col-sm-2 ni_default">{{ni.salaryBrigadier.persentFromSum}}</div>
+<div id = "ni" class="container">
+	<div class="ni-block human-hour row">
+		<div class="col-sm-offset-4 col-sm-3 ni-default">{{ni.humanHourPrice.name}}</div>	
+		<div class="col-sm-1 ni-change">
+			<input class="info_input" type = "number" ng-model="ni.humanHourPrice.value" ng-change="calc()"></input>
+		</div>
+	</div>	
+	
+	<div class="ni-block row">
+		<div class="col-sm-5 ni-default">РќР°Р·РІР°РЅРёРµ</div>	
+		<div class="col-sm-1 ni-default">РµРґ.РёР·Рј.</div>
+		<div class="col-sm-1 ni-default">% РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ</div>
+		<div class="col-sm-1 ni-default">%</div>
+		<div class="col-sm-2 ni-default">РЎСѓРјРјР°, РіСЂРЅ</div>
+		<div class="col-sm-2 ni-default">% РѕС‚ РѕР±С‰РµР№ СЃСѓРјРјС‹</div>
+	</div>
+	<div class="ni-block row" ng-repeat="ni in ni.prop">
+		<div class="col-sm-5 ni-default left">{{ni.name}}</div>	
+		<div class="col-sm-1 ni-default">{{ni.measure}}</div>
+		<div class="col-sm-1 ni-default">{{ni.defaultPercent}}</div>	
+		<div class="col-sm-1 ni-change">
+			<input ng-show="ni.percent !== undefined" class="info_input" type = "number" ng-model="ni.percent" ng-change="calc()"></input>
+		</div>
+		<div class="col-sm-2 ni-default">{{ni.value}}</div>
+		<div class="col-sm-2 ni-default">{{ni.persentFromSum}}</div>
+	</div>
 </div>
+

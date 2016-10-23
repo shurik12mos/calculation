@@ -1,0 +1,44 @@
+#ni {
+  margin-top: 50px; }
+  #ni .ni-block {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    text-align: center;
+    border-top: 1px solid #a9825a; }
+    #ni .ni-block .ni-default, #ni .ni-block .ni-change {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+      padding: 5px;
+      border-right: 1px solid #a9825a;
+      overflow: hidden; }
+    #ni .ni-block .left {
+      text-align: left; }
+    #ni .ni-block .ni-default:first-child {
+      border-left: 1px solid #a9825a; }
+    #ni .ni-block .ni-change {
+      padding: 0px; }
+      #ni .ni-block .ni-change input {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 0, 0.31);
+        padding: 5px;
+        overflow: hidden;
+        border: none;
+        text-align: center; }
+  #ni .human-hour {
+    border: none !important;
+    margin-bottom: 10px; }
+    #ni .human-hour .ni-default, #ni .human-hour .ni-change {
+      display: block;
+      text-align: center;
+      border-left: none !important;
+      border-right: none;
+      border-bottom: 1px solid #a9825a; }

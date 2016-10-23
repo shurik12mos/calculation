@@ -1,0 +1,58 @@
+$borderColor: #a9825a;
+$changeColor: rgba(255,255,0,0.31);
+
+#ni {
+	margin-top: 50px;
+	
+	
+	
+	.ni-block {
+		display: flex;
+		text-align: center;
+		border-top: 1px solid $borderColor;
+		
+		
+		.ni-default, .ni-change {
+			display: flex;
+			align-items: center;
+			padding: 5px;
+			border-right: 1px solid $borderColor;			
+			overflow: hidden;			
+		}
+		
+		.left {
+			text-align: left;
+		}
+		
+		.ni-default:first-child {
+			border-left: 1px solid $borderColor;
+		}
+		
+		.ni-change {
+			padding: 0px;
+			
+			input {
+				width: 100%;
+				height: 100%;
+				background-color: $changeColor;
+				padding: 5px;
+				overflow: hidden;
+				border: none;
+				text-align: center;				
+			}
+		}	
+	}
+	
+	.human-hour {
+		border: none !important;
+		margin-bottom: 10px;
+			
+		.ni-default, .ni-change {
+			display: block;
+			text-align: center;
+			border-left: none !important;
+			border-right: none;
+			border-bottom: 1px solid $borderColor;			
+		}
+	}
+}

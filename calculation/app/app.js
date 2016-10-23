@@ -4,10 +4,12 @@
 angular.module('appCalc', [
   'ngRoute',
   'appCalc.calculation',
-  'appCalc.pricelist'
+  'appCalc.pricelist',
+  'appCalc.ni',
+  'appCalc.Common'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');
 
-  $routeProvider.otherwise({redirectTo: 'view//calculation'});
+  $routeProvider.otherwise({redirectTo: 'view/calculation'});
 }]);

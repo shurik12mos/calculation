@@ -1,8 +1,8 @@
 'use strict';
 
-var app = angular.module('appCalc.googleSheet', ['ngResource', 'ngRoute']);
+var app = angular.module('appCalc.googleSheet', ['ngResource', 'ngRoute', 'appCalc.Common']);
 
-app.factory('GetGoogleSheet', function($resource){
+app.factory('GetGoogleSheet', function($resource, JobConstructor){
 	var GetGoogleSheet = $resource('https://spreadsheets.google.com/feeds/cells/11zwz9-Yj0Dr7_EbUjZavhjafobHEy9zwNaL8iwa3ak4/1/public/values?alt=json',
 	{},
 	{get: 
@@ -74,6 +74,7 @@ app.factory('GetGoogleSheet', function($resource){
 									measure:arr[i+4].gs$cell.$t,
 									price: parseFloat(arr[i+5].gs$cell.$t.replace(/,/g, "."))
 								}
+								pricelist[numSection][numSubsection][numJob] = new JobConstructor(pricelist[numSection][numSubsection][numJob]);
 								counterRow = row;
 								
 								// Проверка вставленного значения. Если неккоректно, то удалить
@@ -144,8 +145,7 @@ app.factory('GetGoogleSheet', function($resource){
 					
 				}
 				
-				price = {price: parsingPrice(price)};
-				console.log("price = ", price);
+				price = {price: parsingPrice(price)};				
 				return price;
 			} //transformResponse
 		}
