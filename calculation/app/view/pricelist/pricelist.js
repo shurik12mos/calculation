@@ -14,14 +14,18 @@ var app = angular.module('appCalc.pricelist', ['ngResource', 'ngRoute', 'appCalc
 	if (!Pricelist.pricelist) {		
 		price = GetGoogleSheet.get(function(success){
 			Pricelist.init(success.price);
-			$scope.pricelist = Pricelist;			
+			$scope.pricelist = Pricelist;	
+			$scope.pricelist.unChecked();			
 		}, function(error){
 			console.log('error', error);
 		});
 	}else {
 		$scope.pricelist = Pricelist;
 		$scope.load = true;	
+		$scope.pricelist.unChecked();
 	}
+	
+	
 		
 }]);
 

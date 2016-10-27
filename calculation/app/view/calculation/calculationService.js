@@ -2,7 +2,7 @@
 
 var app = angular.module('appCalc.calculationService', ['appCalc.Common', 'appCalc.niService']);
 
-app.service('Calculation', function(JobConstructor, Ni, Common){
+app.service('Calculation', function(JobConstructor, Ni, Common, MaterialConstructor){
 	
 	function setIndex(arr) {
 		arr.forEach(function(e, i, a) {			
@@ -39,20 +39,42 @@ app.service('Calculation', function(JobConstructor, Ni, Common){
 	
 	// удаление работы
 	this.deleteJob = function(job){
-		this.jobs = this.jobs.filter(function(elem) {
-			console.log("deleteJob job", job, "elem", elem);
-			if (elem.code === job.code && elem.name === job.name) {
+		this.jobs = this.jobs.filter(function(elem) {			
+			if (elem.index === job.index) {
 				return false;
 			}
 			return true;
 		});
+		
+		setIndex(this.jobs);
+		
+		// считаем смету
 		this.calculate();
 	};
 	
+	// Добавление материала
+	this.addMaterial = function(){	
+		var material = new MaterialConstructor();
+		// добавляем в список материалов
+		this.materials.push(material);
+		// устанавливаем индекс
+		setIndex(this.materials);
+		// считаем сумму
+		this.calculate();
+	};
+	
+	this.deleteMaterial = function(material) {
+		this.materials.splice(material.index-1, 1);
+		setIndex(this.materials);
+	};
+	
+	// Калькуляция работ и материалов.
 	this.calculate = function() {
 		var total = 0,totalhh = 0, totalam = 0,
 			sumSalary = 0,reserve, sum,
-			niReserve = Ni.prop.reserve.percent/100;
+			niReserve = Ni.prop.reserve.percent/100,
+			niDelivery = Ni.prop.deliveryExp.percent/100,
+			materialSum = 0;
 		
 		// считаем сумму всех работ
 		this.jobs.forEach(function(element){
@@ -71,6 +93,22 @@ app.service('Calculation', function(JobConstructor, Ni, Common){
 		this.jobs.human_hour = Common.toFloat(totalhh);	
 		
 		Ni.calc(sumSalary, totalam);
+		
+		// считаем материалы
+		this.materials.sum = 0;
+		this.materials.forEach(function(material, i, arr){
+			materialSum += material.sumMaterial();
+			console.log("materialSum" + i, material.sumMaterial());
+		});
+		console.log("materialSum all", materialSum);
+		
+		this.materials.sum = materialSum;
+		//Запас на материалы
+		this.materials.reserve = Common.toFloat(this.materials.sum*niReserve);
+		// Расходы по доставке и оформлению материалов
+		this.materials.delivery = Common.toFloat((this.materials.sum + this.materials.reserve)*niReserve);
+		this.materials.sum = this.materials.sum + this.materials.reserve + this.materials.delivery;	
+		console.log("this.materials.sum", this.materials.sum);		
 	}
 		
 });

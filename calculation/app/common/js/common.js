@@ -81,6 +81,30 @@ app.factory('JobConstructor', function(Common, Ni){
 	return Job;
 });
 
+app.factory('MaterialConstructor', function(Common, Ni){
+	function Material() {
+		this.name = "";
+		this.measure = "";
+		this.number = 0;
+		this.price = 0;
+				
+		// Функция расчета суммы стоимости материала
+		this.sumMaterial = function() {
+			this.number = Common.toFloat(this.number),
+			this.price = Common.toFloat(this.price);
+						
+			this.sum = (this.number*this.price);			
+			this.sum = (Number.isFinite(this.sum)&&this.sum>=0)?Common.toFloat(this.sum):"Ошибка";	
+			return this.sum;
+		};	
+			
+		return this;
+	};
+	return Material;
+});
+
+
+
 // сервис общедоступных функций
 app.service('Common', function(){
 	// функция преобразования к дробному числу. По умолчанию 2 знака после запятой.

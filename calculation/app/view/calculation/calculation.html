@@ -43,12 +43,12 @@
 				</div>	
 				<div class="sum mat_sum right">
 					<span>Материалы: </span>
-					<span class="price">0</span>
+					<span class="price">{{calculation.materials.sum}}</span>
 					<span>грн</span>
 				</div>
 				<div class="sum all_sum right">
 					<span>Всего: </span>
-					<span class="price">0</span>
+					<span class="price">{{calculation.jobs.sum + calculation.materials.sum}}</span>
 					<span>грн</span>
 				</div>
 			</div>
@@ -84,6 +84,11 @@
 						<td><input type = "text" ng-model="job.number" ng-blur="calculation.calculate()"/></td>
 						<td>{{job.price}}</td>
 						<td>{{job.sum}}</td>
+						<td class = "btn-delete">
+							<button type="button" class="btn btn-xs btn-danger" ng-click="calculation.deleteJob(job)">
+								<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+							</button>
+						</td>
 					</tr>
 					<tr class="jobs_reserve">
 						<td></td>
@@ -100,7 +105,7 @@
 			<div class="materials_table table_calc col-sm-12">
 				<h3>Материалы</h3>
 				<div class = "add_row">
-					<button type="button" class="btn btn-xs btn-primary">
+					<button type="button" class="btn btn-xs btn-primary" ng-click = "calculation.addMaterial()">
 						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 					</button>
 				</div>
@@ -113,28 +118,33 @@
 						<th>ст.ед., грн</th>
 						<th>сумма, грн</th>
 					</tr>
-					<tr class="emty_row">
-						<td>1</td>
-						<td contenteditable></td>
-						<td contenteditable></td>
-						<td contenteditable></td>
-						<td contenteditable></td>
-						<td>0</td>
+					<tr class="material" ng-repeat="material in calculation.materials" ng-keyup="calculation.keyup($event)">
+						<td>{{material.index}}</td>
+						<td><input type = "text" ng-model="material.name"/></td>
+						<td><input type = "text" ng-model="material.measure"/></td>						
+						<td><input type = "text" ng-model="material.number" ng-blur="calculation.calculate()"/></td>
+						<td><input type = "text" ng-model="material.price" ng-blur="calculation.calculate()"/></td>
+						<td>{{material.sum}}</td>
+						<td class="btn-delete">
+							<button type="button" class="btn btn-xs btn-danger" ng-click = "calculation.deleteMaterial()">
+								<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td></td>
 						<td colspan = '4'>Запас на материалы (не используемая часть возвращается), грн</td>
-						<td>0</td>
+						<td>{{calculation.materials.reserve}}</td>
 					</tr>
 					<tr>
 						<td></td>
 						<td colspan = '4'>Расходы по оформлению и доставке материалов, грн</td>
-						<td>0</td>
+						<td>{{calculation.materials.delivery}}</td>
 					</tr>
 					<tr>
 						<td></td>
 						<td colspan = '4'>Итого материалы, грн</td>
-						<td>0</td>
+						<td>{{calculation.materials.sum}}</td>
 					</tr>
 				</table>
 			</div>

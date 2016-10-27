@@ -312,6 +312,8 @@ app.service('Ni', function(){
 			if (!this.prop[key].calculate) continue;
 			this.prop[key].calculate(sum, amortization);
 		}
+		
+		return this;
 	}
 	
 	/*this.total = function () {
