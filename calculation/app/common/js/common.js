@@ -32,6 +32,48 @@ app.factory('JobConstructor', function(Common, Ni){
 			}			
 		}
 		
+		this.checkedJobUninstal = function(event, job, target) {
+		var find, replaced = false
+		event.stopPropagation();		
+		job = angular.copy(job);
+		
+		// массив регулярных выражений для замены
+		find = [/монтаж/i, /изготовление/i, /установка/i, /прокладка/i, /затягивание/i];
+		
+		// меняем любое из совпавших значений в массиве find на "Демонтаж" и устанавливаем флаг replaced в true
+		find.forEach(function(item){
+			if (job.name.search(item) !== -1) {
+				job.name = job.name.replace(item, "Демонтаж");
+				replaced = true;
+			};
+		});
+		
+		// если не было ни одного совпадени я с регулярными выражениями, то добавляем к имени "Демонтаж"
+		if (!replaced) job.name = "Демонтаж " + job.name;
+		
+		
+		if (job.checkedUninstall) {							
+			job.human_hour = 0.4*job.human_hour;
+			// делается для того, чтобы было понятно, что работа типа Uninstall. см. this.unChecked
+			delete job.checkedInstall;
+			target.addJob(job);
+		} else {
+			target.deleteJob(job);
+		}		
+	}
+	
+	this.checkedJobInstall = function(event, job, target) {
+		event.stopPropagation();		
+		job = angular.copy(job);
+		if (job.checkedInstall) {
+			// делается для того, чтобы было понятно, что работа типа Install. см. this.unChecked
+			delete job.checkedUnistall;
+			target.addJob(job);
+		} else {
+			target.deleteJob(job);
+		}		
+	}
+		
 		// Функция расчета суммы работы
 		this.sumJob = function() {
 			this.calculate();
@@ -121,6 +163,29 @@ app.service('Common', function(){
 		}else {
 			return NaN;
 		}
-	}
+	};
+	
+	// глубокое копирование массива или объекта. включая свойства у массива.
+	this.deepCopy = function(source) {
+		var target;
+		if (!angular.isArray(source) || !angular.isObject(source)) return source;
+		
+		if (!target) {
+			if (Object.prototype.toString.call(source) === "[object Object]") target = {};
+			if (angular.isArray(source)) target = [];			
+		}
+		
+		
+		for (var key in source) {
+			if (angular.isArray(source[key]) || angular.isObject(source[key])) {
+				target[key] = this.deepCopy(source[key]);
+			}else {
+				target[key] = source[key];
+			}
+		}
+		
+		return target;
+	};
+	
 });
 

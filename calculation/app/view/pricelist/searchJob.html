@@ -1,0 +1,8 @@
+<div id="searchJob" class="row">
+	<div class="col-sm-12 search-form">
+		<input class="form-control" type="text" placeholder="Введите название работы" ng-change = "search(value)" ng-model = "value"></input>
+	</div>
+	<div class="search-results" ng-show="results && results.length">
+		<job ng-repeat = "job in results | filter: value" job="job" target="searchTarget" promise="promise"></job>
+	</div>
+</div>

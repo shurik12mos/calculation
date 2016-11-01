@@ -6,7 +6,8 @@ angular.module('appCalc', [
   'appCalc.calculation',
   'appCalc.pricelist',
   'appCalc.ni',
-  'appCalc.Common'
+  'appCalc.Common',
+  'appCalc.commonDirectives'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');

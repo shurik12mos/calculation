@@ -1,0 +1,25 @@
+<div class="job" ng-click = "$event.stopPropagation()">
+	<div class="col-sm-2 job-checkbox">
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" ng-model="job.checkedInstall" 
+						ng-click="job.checkedJobInstall($event, job, target)"> Монтаж
+			</label>
+		</div>
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" ng-model="job.checkedUninstall"  
+					ng-click="job.checkedJobUninstal($event, job, target)"> Демонтаж
+			</label>
+		</div>
+	</div>
+	<div class="col-sm-6 job-name">
+		{{job.code}}. {{job.name}}
+	</div>
+	<div class="col-sm-2 job-measure">
+		{{job.measure}}
+	</div>
+	<div class="col-sm-2 job-price">
+		{{job.price}} грн
+	</div>
+</div>

@@ -3,6 +3,7 @@
 	<div class="spinner" ng-hide="load">
 		<i class="glyphicon glyphicon-refresh" aria-hidden="true"></i>
 	</div>	
+	<search-job search-source="pricelist" search-target="calculation" promise="loadPrice.promise" ng-show="load"></search-job>
 	<div class="panel category" ng-repeat="category in pricelist.pricelist" ng-class="{checked: category.checked}" 
 	ng-click="pricelist.checkedCategory($event, category)">
 		<div class="panel-heading">
@@ -19,29 +20,7 @@
 					</h4>
 				</div>
 				<div class="panel-content" ng-show="section.checked">
-					<div class="job row" ng-repeat="job in section" ng-click = "$event.stopPropagation()">
-						<div class="col-sm-2 job-checkbox">
-							<div class="checkbox">
-								<label>
-									<input type="checkbox" ng-model="job.checkedInstall" ng-click="pricelist.checkedJobInstall($event, job)"> Монтаж
-								</label>
-							</div>
-							<div class="checkbox">
-								<label>
-									<input type="checkbox" ng-model="job.checkedUninstall"  ng-click="pricelist.checkedJobUninstal($event, job)"> Демонтаж
-								</label>
-							</div>
-						</div>
-						<div class="col-sm-6 job-name">
-							{{job.code}}. {{job.name}}
-						</div>
-						<div class="col-sm-2 job-measure">
-							{{job.measure}}
-						</div>
-						<div class="col-sm-2 job-price">
-							{{job.price}} грн
-						</div>
-					</div>
+					<job ng-repeat="job in section" job="job" target="calculation" promise="loadPrice.promise"></job>
 				</div>
 			</div>
 		</div>

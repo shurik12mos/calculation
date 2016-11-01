@@ -1,15 +1,20 @@
 'use strict';
 
-var app = angular.module('appCalc.pricelistService', ['ngResource', 'ngRoute', 'appCalc.googleSheet', 'appCalc.calculationService']);
+var app = angular.module('appCalc.pricelistService', ['ngResource', 'ngRoute', 'appCalc.googleSheet', 'appCalc.calculationService', 'appCalc.Common']);
 
-app.service('Pricelist', function($resource, GetGoogleSheet, Calculation){	
-	var pricelist;
+app.service('Pricelist', function($resource, GetGoogleSheet, Calculation, Common){	
+	var cleanPricelist;
 	
 	this.init = function(data) {		
 		if (!this.pricelist) {
-			pricelist = data;
-			this.pricelist = data;
+			cleanPricelist = Common.deepCopy(data);
+			this.pricelist = Common.deepCopy(data);
+			console.log("this.pricelist", this.pricelist);
 		}		
+	};
+	
+	this.getPrice = function(){
+		return cleanPricelist;
 	};
 	
 	this.checkedCategory = function(event, elem) {		
@@ -26,7 +31,7 @@ app.service('Pricelist', function($resource, GetGoogleSheet, Calculation){
 				e.checked = false;
 			}			
 		});		
-	}
+	};
 	
 	this.checkedSection = function(event, elem, category) {
 		event.preventDefault();
@@ -40,33 +45,45 @@ app.service('Pricelist', function($resource, GetGoogleSheet, Calculation){
 		});		
 	}
 	
-	this.checkedJobUninstal = function(event, job) {
+	this.checkedJobUninstal = function(event, job, target) {
+		var find, replaced = false
 		event.stopPropagation();		
 		job = angular.copy(job);
-		job.name = job.name.replace(/монтаж/i, "Демонтаж");	
-		job.name = job.name.replace(/изготовление/i, "Демонтаж");		
-		job.name = job.name.replace(/установка/i, "Демонтаж");		
-		job.name = job.name.replace(/прокладка/i, "Демонтаж");		
-		job.name = job.name.replace(/затягивание/i, "Демонтаж");
+		
+		// массив регулярных выражений для замены
+		find = [/монтаж/i, /изготовление/i, /установка/i, /прокладка/i, /затягивание/i];
+		
+		// меняем любое из совпавших значений в массиве find на "Демонтаж" и устанавливаем флаг replaced в true
+		find.forEach(function(item){
+			if (job.name.search(item) !== -1) {
+				job.name = job.name.replace(item, "Демонтаж");
+				replaced = true;
+			};
+		});
+		
+		// если не было ни одного совпадени я с регулярными выражениями, то добавляем к имени "Демонтаж"
+		if (!replaced) job.name = "Демонтаж " + job.name;
+		
+		
 		if (job.checkedUninstall) {							
 			job.human_hour = 0.4*job.human_hour;
 			// делается для того, чтобы было понятно, что работа типа Uninstall. см. this.unChecked
 			delete job.checkedInstall;
-			Calculation.addJob(job);
+			target.addJob(job);
 		} else {
-			Calculation.deleteJob(job);
+			target.deleteJob(job);
 		}		
 	}
 	
-	this.checkedJobInstall = function(event, job) {
+	this.checkedJobInstall = function(event, job, target) {
 		event.stopPropagation();		
 		job = angular.copy(job);
 		if (job.checkedInstall) {
 			// делается для того, чтобы было понятно, что работа типа Install. см. this.unChecked
 			delete job.checkedUnistall;
-			Calculation.addJob(job);
+			target.addJob(job);
 		} else {
-			Calculation.deleteJob(job);
+			target.deleteJob(job);
 		}		
 	}
 	
@@ -75,11 +92,11 @@ app.service('Pricelist', function($resource, GetGoogleSheet, Calculation){
 		var  jobs, self = this, allJobs = [];
 		
 		jobs = Calculation.jobs;
-		console.log('step1', jobs);
-		
+				
 		this.pricelist.forEach(function(category) {
 			category.forEach(function(section) {
 				section.forEach(function(job) {
+					if (!job) return;
 					allJobs.push(job);
 					
 					job.checkedInstall = false;
@@ -90,7 +107,7 @@ app.service('Pricelist', function($resource, GetGoogleSheet, Calculation){
 							if (jobCalculation.checkedInstall) {
 								job.checkedInstall = true;								
 							} else if (jobCalculation.checkedUninstall) {
-								jobFind.checkedUninstall = true;
+								job.checkedUninstall = true;
 							}
 						}
 					});
@@ -98,55 +115,8 @@ app.service('Pricelist', function($resource, GetGoogleSheet, Calculation){
 			});
 		});
 		
-		console.log('step2', allJobs);
-		
-		/*jobs.forEach(function(job) {
-			
-		});
-		
-		jobs.forEach(checkJobInCalculation);
-		
-		function checkJobInCalculation(job) {
-			var arrCode, categoryNumber, sectionNumber, category, section, jobFind, code;
-			console.log('step1', job);
-			code = job.code;
-				
-			if (!code) return false;
-			
-			try {
-				arrCode = code.split(".");
-				categoryNumber = arrCode[0];
-				sectionNumber = arrCode[0] + "." + arrCode[1];
-			}catch (err){
-				return false;
-			}		
-			
-			category = self.pricelist.find(function(category) {
-				if (category.code === categoryNumber) return true;
-				return false;
-			});
-			
-			if (!category) return false;
-			
-			section = category.find(function(section){
-				if (section.code === sectionNumber) return true;
-			});
-			
-			if (!section) return false;
-			
-			jobFind = section.find(function(job) {
-				if (job.code === categoryNumber) return true;
-			});
-			
-			if (!jobFind) return false;
-			
-			if (job.checkedInstall) {
-				jobFind.checkedInstall = false;
-			} else if (job.checkedUninstall) {
-				jobFind.checkedUninstall = false;
-			}
-		}					
-	}*/
+		this.allJobs = allJobs;
+		console.log("this.allJobs", this);
 		
 		return this;
 	}

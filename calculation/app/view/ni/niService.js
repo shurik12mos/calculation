@@ -96,8 +96,9 @@ app.service('Ni', function(){
 		name: "Административные, загальні расходы от пп1",
 		id: 8,
 		value: 0,
-		measure: "грн",		
+		measure: "грн",
 		defaultPercent: 60,
+		percent: 60,
 		calculate: function(sum){
 			this.value = parseFloat((this.percent*sum/100).toFixed(2));
 		}	
@@ -121,7 +122,8 @@ app.service('Ni', function(){
 		name: "Поощрения и Риски",
 		id: 10,
 		value: 0,
-		measure: "грн",		
+		measure: "грн",	
+		percent: 65,
 		defaultPercent: 65,
 		calculate: function(sum){
 			this.value = self.prop.salaryMainWorkers.value + self.prop.salaryBrigadier.value + self.prop.salaryManager.value + self.prop.salaryProject.value;

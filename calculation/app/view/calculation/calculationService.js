@@ -27,6 +27,8 @@ app.service('Calculation', function(JobConstructor, Ni, Common, MaterialConstruc
 		
 		// создаем новую работу		
 		job = new JobConstructor(job);	
+		
+		console.log("111", job instanceof JobConstructor)
 		// определяем сумму
 		job.sumJob();		
 		// добавляем в список работ

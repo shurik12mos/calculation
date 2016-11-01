@@ -1,0 +1,27 @@
+#searchJob {
+	position: relative;
+	overflow: auto;
+	
+	.search-form {
+		float: none;
+		
+		input {
+			width: 100%;
+		}
+	}
+	
+	.search-results {		
+		background-color: #f9f7f7;
+		padding-top: 20px;
+		padding-bottom: 50px;
+		margin-left: 15px;
+		margin-right: 15px;		
+		border-radius: 10px;
+		
+		.job {
+			position: relative;
+			z-index: 2;
+		}
+		
+	}
+}

@@ -145,7 +145,8 @@ app.factory('GetGoogleSheet', function($resource, JobConstructor){
 					
 				}
 				
-				price = {price: parsingPrice(price)};				
+				price = {price: parsingPrice(price)};	
+				console.log("price in Google", price);
 				return price;
 			} //transformResponse
 		}
