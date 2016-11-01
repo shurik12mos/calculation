@@ -187,5 +187,13 @@ app.service('Common', function(){
 		return target;
 	};
 	
+	// убирание фокуса с ячейки при нажатии Enter
+	this.endEnter = function(event) {
+		if (event.keyCode !== 13) {
+			return;
+		}
+		event.target.blur();		
+	}
+	
 });
 

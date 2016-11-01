@@ -3,7 +3,8 @@
 var app = angular.module('appCalc.niService', []);
 
 app.service('Ni', function(){
-	var self = this;	
+	var self = this,
+	prevSalary, prevAmortization, prevTotal;;	
 	
 	// Свойства числовых показателей 
 	this.prop = {};
@@ -60,7 +61,7 @@ app.service('Ni', function(){
 		measure: "грн",
 		percent: 30,
 		defaultPercent: 30,
-		calculate: function(sum){
+		calculate: function(sum){			
 			this.value = parseFloat((this.percent*sum/100).toFixed(2));
 		}	
 	};
@@ -224,7 +225,11 @@ app.service('Ni', function(){
 		value: 0,
 		measure: "грн",
 		percent: 5,
-		defaultPercent: 5		
+		defaultPercent: 5,
+		calculate: function(sum, am, total){
+			this.value = total*this.percent/100;
+			this.value =  parseFloat(this.value.toFixed(2));
+		}			
 	};
 	
 	// Расходы по оформлению и доставке материалов
@@ -234,7 +239,12 @@ app.service('Ni', function(){
 		value: 0,
 		measure: "грн",
 		percent: 10,
-		defaultPercent: 10		
+		defaultPercent: 10,
+		calculate: function(sum, am, total, totalMaterials){			
+			this.value = totalMaterials*this.percent/100;
+			if (!Number.isFinite(this.value)) this.value = 0;
+			this.value =  parseFloat(this.value.toFixed(2));
+		}
 	};
 	
 	// Скидка по прибыли и административным
@@ -244,7 +254,11 @@ app.service('Ni', function(){
 		value: 0,
 		measure: "грн",
 		percent: 0,
-		defaultPercent: 0		
+		defaultPercent: 0,
+		calculate: function(sum, am, total){
+			this.value = total*this.percent/100;
+			this.value =  parseFloat(this.value.toFixed(2));
+		}
 	};
 	
 	// Скидка по поощрениям
@@ -254,7 +268,11 @@ app.service('Ni', function(){
 		value: 0,
 		measure: "грн",
 		percent: 0,
-		defaultPercent: 0		
+		defaultPercent: 0,
+		calculate: function(sum, am, total){
+			this.value = total*this.percent/100;
+			this.value =  parseFloat(this.value.toFixed(2));
+		}
 	};
 	
 	// Возможная премия по договору
@@ -301,32 +319,31 @@ app.service('Ni', function(){
 		return 0;
 	}
 	
+	
 	// Функция обновления данных this.prop. Вызывается при изменении данных пользователем.
-	this.calc = function(sum, amortization) {
+	this.calc = function(sumSalary, amortization, total) {
+		if (!sumSalary) sumSalary = self.sumSalary;
+		console.log("sumSalary", sumSalary);
+		if (!amortization) amortization = self.amortization;
+		if (!total) total = self.total;
+		
+		self.sumSalary = sumSalary;
+		self.amortization = amortization;
+		self.total = total;
+		
 		getPercentProfit(self);
 		getPercentAdmin(self);
 		getPercentPromotion(self);	
-		if (sum) {
-			self.prop.salaryMainWorkers.value = sum;
+		if (sumSalary) {
+			self.prop.salaryMainWorkers.value = sumSalary;
 		}
-		for (var key in this.prop) {
-			if (!this.prop.hasOwnProperty(key)) continue;
-			if (!this.prop[key].calculate) continue;
-			this.prop[key].calculate(sum, amortization);
+		for (var key in self.prop) {
+			if (!self.prop.hasOwnProperty(key)) continue;
+			if (!self.prop[key].calculate) continue;
+			self.prop[key].calculate(sumSalary, amortization, total);
 		}
 		
 		return this;
 	}
-	
-	/*this.total = function () {
-		var total;
-		return 0
-	}*/
-	
-	/*this.profit.percent = getPercentProfit(self);
-	this.adminExp.percent = getPercentAdmin(self);
-	this.promotion.percent = getPercentPromotion(self);
-	this.possibleBonus.percent = getPercentBonus(self);	
-	*/
 	
 });

@@ -3,7 +3,9 @@
 var app = angular.module('appCalc.googleSheet', ['ngResource', 'ngRoute', 'appCalc.Common']);
 
 app.factory('GetGoogleSheet', function($resource, JobConstructor){
-	var GetGoogleSheet = $resource('https://spreadsheets.google.com/feeds/cells/11zwz9-Yj0Dr7_EbUjZavhjafobHEy9zwNaL8iwa3ak4/1/public/values?alt=json',
+	// ссылка на Google Sheet в D:\google disk\Общая\Ярошенко Саша
+	// прошлая ссылка на прайс лист в разработке - https://spreadsheets.google.com/feeds/cells/11zwz9-Yj0Dr7_EbUjZavhjafobHEy9zwNaL8iwa3ak4/1/public/values?alt=json	
+	var GetGoogleSheet = $resource('https://spreadsheets.google.com/feeds/cells/1f3vZe9LyMn_z1KO6RGuNHBan-nb7u13tPTI24Rhaza0/2/public/values?alt=json',
 	{},
 	{get: 
 		{ 

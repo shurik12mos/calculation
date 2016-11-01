@@ -13,22 +13,12 @@ app.service('Calculation', function(JobConstructor, Ni, Common, MaterialConstruc
 	this.jobs = [];
 	this.materials = [];
 	
-	// убирание фокуса с ячейки при нажатии Enter
-	this.keyup = function(event) {
-		if (event.keyCode !== 13) {
-			return;
-		}
-		
-		event.target.blur();		
-	}
-	
 	// добавление работы
 	this.addJob = function(job){
 		
 		// создаем новую работу		
-		job = new JobConstructor(job);	
+		job = new JobConstructor(job);			
 		
-		console.log("111", job instanceof JobConstructor)
 		// определяем сумму
 		job.sumJob();		
 		// добавляем в список работ
@@ -94,23 +84,20 @@ app.service('Calculation', function(JobConstructor, Ni, Common, MaterialConstruc
 		this.jobs.sum = sum;	
 		this.jobs.human_hour = Common.toFloat(totalhh);	
 		
-		Ni.calc(sumSalary, totalam);
+		Ni.calc(sumSalary, totalam, total);
 		
 		// считаем материалы
 		this.materials.sum = 0;
 		this.materials.forEach(function(material, i, arr){
-			materialSum += material.sumMaterial();
-			console.log("materialSum" + i, material.sumMaterial());
+			materialSum += material.sumMaterial();			
 		});
-		console.log("materialSum all", materialSum);
-		
+				
 		this.materials.sum = materialSum;
 		//Запас на материалы
 		this.materials.reserve = Common.toFloat(this.materials.sum*niReserve);
 		// Расходы по доставке и оформлению материалов
 		this.materials.delivery = Common.toFloat((this.materials.sum + this.materials.reserve)*niReserve);
-		this.materials.sum = this.materials.sum + this.materials.reserve + this.materials.delivery;	
-		console.log("this.materials.sum", this.materials.sum);		
+		this.materials.sum = this.materials.sum + this.materials.reserve + this.materials.delivery;					
 	}
 		
 });

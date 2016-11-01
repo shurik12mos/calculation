@@ -53,55 +53,7 @@
 				</div>
 			</div>
 			
-			<div class="jobs_table table_calc col-sm-12">
-				<h3>Строительно-монтажные работы</h3>
-				<div class = "add_row">
-					<button type="button" class="btn btn-xs btn-primary" ng-click="calculation.addJob()">
-						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-					</button>
-				</div>
-				<div class="human-hour">
-					<span>Всего чел*ч: {{calculation.jobs.human_hour}}</span>
-					<span class="sum_human_hour"></span>
-				</div>				
-				<table>
-					<tr class="head_table">
-						<th>№</th>
-						<th>Наименование</th>
-						<th>ед.изм.</th>
-						<th>норма, чел*ч</th>
-						<th>амортизация</th>
-						<th>кол-во</th>
-						<th>ст.ед., грн</th>
-						<th>сумма, грн</th>
-					</tr>
-					<tr class="job" ng-repeat="job in calculation.jobs" ng-keyup="calculation.keyup($event)">
-						<td>{{job.index}}</td>
-						<td><input type = "text" ng-model="job.name"/></td>
-						<td><input type = "text" ng-model="job.measure"/></td>
-						<td><input type = "text" ng-model="job.human_hour" ng-blur="calculation.calculate()"/></td>
-						<td><input type = "text" ng-model="job.amortization" ng-blur="calculation.calculate()"/></td>
-						<td><input type = "text" ng-model="job.number" ng-blur="calculation.calculate()"/></td>
-						<td>{{job.price}}</td>
-						<td>{{job.sum}}</td>
-						<td class = "btn-delete">
-							<button type="button" class="btn btn-xs btn-danger" ng-click="calculation.deleteJob(job)">
-								<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-							</button>
-						</td>
-					</tr>
-					<tr class="jobs_reserve">
-						<td></td>
-						<td colspan = '6'>Запас на работы (не используемая часть возвращается)</td>
-						<td>{{calculation.jobs.reserve}}</td>
-					</tr>
-					<tr class="jobs_sum">
-						<td></td>
-						<td colspan = '6'>Итого строительно-монтажные и пусконаладочные работы, грн</td>
-						<td>{{calculation.jobs.sum}}</td>
-					</tr>
-				</table>
-			</div>
+			<table-job source="calculation"></table-job>
 			<div class="materials_table table_calc col-sm-12">
 				<h3>Материалы</h3>
 				<div class = "add_row">

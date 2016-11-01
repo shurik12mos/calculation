@@ -1,0 +1,49 @@
+<div class="jobs_table table_calc col-sm-12">
+	<h3>Строительно-монтажные работы</h3>
+	<div class = "add_row">
+		<button type="button" class="btn btn-xs btn-primary" ng-click="source.addJob()">
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+		</button>
+	</div>
+	<div class="human-hour">
+		<span>Всего чел*ч: {{source.jobs.human_hour}}</span>
+		<span class="sum_human_hour"></span>
+	</div>				
+	<table>
+		<tr class="head_table">
+			<th>№</th>
+			<th>Наименование</th>
+			<th>ед.изм.</th>
+			<th>норма, чел*ч</th>
+			<th>амортизация</th>
+			<th>кол-во</th>
+			<th>ст.ед., грн</th>
+			<th>сумма, грн</th>
+		</tr>
+		<tr class="job" ng-repeat="job in source.jobs" ng-keyup="common.endEnter($event)">
+			<td>{{job.index}}</td>
+			<td><input type = "text" ng-model="job.name"/></td>
+			<td><input type = "text" ng-model="job.measure"/></td>
+			<td><input type = "text" ng-model="job.human_hour" ng-blur="source.calculate()"/></td>
+			<td><input type = "text" ng-model="job.amortization" ng-blur="source.calculate()"/></td>
+			<td><input type = "text" ng-model="job.number" ng-blur="source.calculate()"/></td>
+			<td>{{job.price}}</td>
+			<td>{{job.sum}}</td>
+			<td class = "btn-delete">
+				<button type="button" class="btn btn-xs btn-danger" ng-click="source.deleteJob(job)">
+					<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+				</button>
+			</td>
+		</tr>
+		<tr class="jobs_reserve">
+			<td></td>
+			<td colspan = '6'>Запас на работы (не используемая часть возвращается)</td>
+			<td>{{source.jobs.reserve}}</td>
+		</tr>
+		<tr class="jobs_sum">
+			<td></td>
+			<td colspan = '6'>Итого строительно-монтажные и пусконаладочные работы, грн</td>
+			<td>{{source.jobs.sum}}</td>
+		</tr>
+	</table>
+</div>

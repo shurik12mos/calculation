@@ -24,3 +24,20 @@ app.directive('job', [function() {
 		}
 	};
 }]);
+
+app.directive('tableJob', ['Common', function(Common) {
+	// source должен иметь массив jobs и методы addJob, deleteJob, calculate
+	//type указывает на вид таблицы - короткий(short), расширенный (advanced)
+	return  {
+		restrict: 'E',
+		scope: {
+			source: "=source",
+			type: "=type"
+		},
+		templateUrl: 'common/directives/tableJob/tableJob.html',
+		link: function(scope, element, attrs) {		
+			var advanced = false;
+			scope.common = Common;			
+		}
+	};
+}]);
