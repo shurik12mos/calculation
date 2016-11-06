@@ -1,38 +1,36 @@
-
-
-<div role="tabpanel" class="tab-pane" id="calc">
+<div role="tabpanel" class="tab-pane calc" id="calc">
 			<div class = "head col-sm-12">
 				<div class="head_info">
 					<span>Номер КП</span>
-					<input class="info_input" type = "text"></input>
+					<input class="info_input" type = "text" ng-model="calculation.number_kp"></input>
 				</div>
 				<div class="head_info">
 					<span>Заказчик</span>
-					<input class="info_input" type = "text"></input>
+					<input class="info_input" type = "text" ng-model='calculation.customer_name'></input>
 				</div>
 				<div class="head_info">
 					<span>Адрес</span>
-					<input class="info_input" type = "text"></input>
+					<input class="info_input" type = "text" ng-model='calculation.adress'></input>
 				</div>
 				<div class="head_info">
 					<span>Телефон</span>
-					<input class="info_input" type = "tel"></input>
+					<input class="info_input" type = "tel" ng-model='calculation.phone'></input>
 				</div>
 				<div class="head_info">
 					<span>Составил</span>
-					<input class="info_input" type = "text"></input>
+					<input class="info_input" type = "text" ng-model='calculation.madeBy'></input>
 				</div>
 				<div class="head_info">
 					<span>Менеджер</span>
-					<input class="info_input" type = "text"></input>
+					<input class="info_input" type = "text" ng-model='calculation.manager'></input>
 				</div>
 				<div class="head_info">
 					<span>Проектировщик</span>
-					<input class="info_input" type = "text"></input>
+					<input class="info_input" type = "text" ng-model='calculation.projectDesigner'></input>
 				</div>
 				<div class="head_info">
 					<span>Другая информация</span>
-					<textarea class="info_input" type = "text" cols="10"></textarea>
+					<textarea class="info_input" type = "text" cols="10" ng-model='calculation.info'></textarea>
 				</div>				
 			</div>
 			<div class="prices col-sm-12">
@@ -53,7 +51,7 @@
 				</div>
 			</div>
 			
-			<table-job source="calculation"></table-job>
+			<table-job source="calculation" price="pricelist"></table-job>
 			<div class="materials_table table_calc col-sm-12">
 				<h3>Материалы</h3>
 				<div class = "add_row">

@@ -15,7 +15,19 @@ var app = angular.module('appCalc.pricelist', ['ngResource',
 }])
 
 .controller('PricelistCtrl', ['GetGoogleSheet', '$scope', 'Pricelist', 'Calculation', '$q', function(GetGoogleSheet, $scope, Pricelist, Calculation, $q) {
-	$scope.loadPrice;	
+	$scope.pricelist = Pricelist;
+	$scope.loadPrice = Pricelist.loadPrice;
+	
+	$scope.pricelist.init();
+	$scope.loadPrice.promise.then(function(){
+		$scope.load = true;
+		$scope.pricelist.unChecked();
+	});
+	
+	
+	
+	
+	/*$scope.loadPrice;	
 	
 	$scope.loadPrice = $q.defer();
 	
@@ -34,53 +46,8 @@ var app = angular.module('appCalc.pricelist', ['ngResource',
 		$scope.pricelist = Pricelist;
 		$scope.load = true;	
 		$scope.pricelist.unChecked();
-	}
+	}*/
 	
-	$scope.calculation = Calculation;
-	
-		
-}]);
-
-//search directives
-app.directive('searchJob', [function() {
-	return  {
-		restrict: 'E',
-		scope: {
-			searchSource: "=searchSource",
-			searchTarget: "=searchTarget",
-			promise: "=promise"
-		},
-		templateUrl: 'view/pricelist/searchJob.html',
-		link: function(scope, element, attrs) {	
-			var jobsArr;
-			function createJobsArr(source, target) {
-				if (!target) target = [];
-				
-				if (!Array.isArray(source)) return [];
-				source.forEach(function(item) {
-					if (Array.isArray(item)) {
-						createJobsArr(item, target);
-					} else if (Object.prototype.toString.call(item) === "[object Object]") {
-						target.push(item);
-					}
-				});
-				
-				return target;
-			};
-			
-			//jobsArr = createJobsArr(scope.searchSource, jobsArr);
-			
-			
-			
-			scope.search = function(value) {
-				if (value.length<3) {
-					scope.results = [];
-				}else {
-					scope.results = scope.searchSource.allJobs;
-				}				
-			}
-			
-		}
-	};
+	$scope.calculation = Calculation;		
 }]);
 

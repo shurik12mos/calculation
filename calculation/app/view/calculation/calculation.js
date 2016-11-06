@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('appCalc.calculation', ['ngRoute', 'appCalc.calculationService'])
+angular.module('appCalc.calculation', ['ngRoute', 'appCalc.calculationService', 'appCalc.pricelistService', 'appCalc.Common'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/view/calculation', {
@@ -9,7 +9,8 @@ angular.module('appCalc.calculation', ['ngRoute', 'appCalc.calculationService'])
   });
 }])
 
-.controller('CalculationCtrl', ['$scope', 'Calculation', function($scope, Calculation) {
+.controller('CalculationCtrl', ['$scope', 'Calculation', 'Pricelist', function($scope, Calculation, Pricelist) {
 	$scope.calculation = Calculation;
 	$scope.calculation.calculate();
+	$scope.pricelist = Pricelist;
 }]);

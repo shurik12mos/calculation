@@ -2,16 +2,41 @@
 
 var app = angular.module('appCalc.pricelistService', ['ngResource', 'ngRoute', 'appCalc.googleSheet', 'appCalc.calculationService', 'appCalc.Common']);
 
-app.service('Pricelist', function($resource, GetGoogleSheet, Calculation, Common){	
-	var cleanPricelist;
+app.service('Pricelist', function($resource, $q, GetGoogleSheet, Calculation, Common){	
+	var cleanPricelist,
+	self = this;
 	
-	this.init = function(data) {		
+	this.loadPrice = $q.defer();
+	console.log("this.loadPrice", this.loadPrice);
+	
+	this.init = function() {
+		var price, load = false;
+		
+		if (!this.pricelist) {		
+			price = GetGoogleSheet.get(function(success){
+				cleanPricelist = Common.deepCopy(success.price);
+				self.pricelist = Common.deepCopy(success.price);
+				self.unChecked();
+				
+				load = true;
+				self.loadPrice.resolve();
+			}, function(error){
+				console.log('error', error);
+				self.loadPrice.reject();
+			});
+		}
+		
+		return load;
+	}
+	
+	
+	/*this.init = function(data) {		
 		if (!this.pricelist) {
 			cleanPricelist = Common.deepCopy(data);
 			this.pricelist = Common.deepCopy(data);
 			console.log("this.pricelist", this.pricelist);
 		}		
-	};
+	};*/
 	
 	this.getPrice = function(){
 		return cleanPricelist;

@@ -3,7 +3,7 @@
 	<div class="spinner" ng-hide="load">
 		<i class="glyphicon glyphicon-refresh" aria-hidden="true"></i>
 	</div>	
-	<search-job search-source="pricelist" search-target="calculation" promise="loadPrice.promise" ng-show="load"></search-job>
+	<search-job class="row" search-source="pricelist" search-target="calculation" promise="loadPrice.promise" ng-show="load"></search-job>
 	<div class="panel category" ng-repeat="category in pricelist.pricelist" ng-class="{checked: category.checked}" 
 	ng-click="pricelist.checkedCategory($event, category)">
 		<div class="panel-heading">

@@ -63,7 +63,8 @@ app.factory('JobConstructor', function(Common, Ni){
 	}
 	
 	this.checkedJobInstall = function(event, job, target) {
-		event.stopPropagation();		
+		event.stopPropagation();
+		
 		job = angular.copy(job);
 		if (job.checkedInstall) {
 			// делается для того, чтобы было понятно, что работа типа Install. см. this.unChecked

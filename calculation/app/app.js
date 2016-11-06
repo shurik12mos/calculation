@@ -7,10 +7,11 @@ angular.module('appCalc', [
   'appCalc.pricelist',
   'appCalc.ni',
   'appCalc.Common',
-  'appCalc.commonDirectives'
+  'appCalc.commonDirectives',
+  'appCalc.jobReport'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');
 
-  $routeProvider.otherwise({redirectTo: 'view/calculation'});
+  $routeProvider.otherwise({redirectTo: 'view/pricelist'});
 }]);

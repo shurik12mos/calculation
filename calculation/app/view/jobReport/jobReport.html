@@ -1,0 +1,87 @@
+<div class="tab-pane calc row" id="calc">
+	<div class = "head col-sm-6">
+		<div class="head_info">
+			<span>Номер КП</span>
+			<input class="info_input" type = "text" ng-model="calculation.number_kp"></input>
+		</div>
+		<div class="head_info">
+			<span>Заказчик</span>
+			<input class="info_input" type = "text" ng-model='calculation.customer_name'></input>
+		</div>
+		<div class="head_info">
+			<span>Адрес</span>
+			<input class="info_input" type = "text" ng-model='calculation.adress'></input>
+		</div>
+		<div class="head_info">
+			<span>Телефон</span>
+			<input class="info_input" type = "tel" ng-model='calculation.phone'></input>
+		</div>	
+		<div class="head_info">
+			<span>Менеджер</span>
+			<input class="info_input" type = "text" ng-model='calculation.manager'></input>
+		</div>
+		<div class="head_info">
+			<span>Проектировщик</span>
+			<input class="info_input" type = "text" ng-model='calculation.projectDesigner'></input>
+		</div>	
+		<div class="head_info" ng-repeat="worker in workers">
+			<span>Другая информация</span>
+			<textarea class="info_input" type = "text" cols="10" ng-model='worker.name'></textarea>
+		</div>				
+	</div>
+	<div class="stats col-sm-6">
+	
+	</div>
+	<div class="jobs_table table_calc col-sm-12">
+		<h3>Отчет по работам</h3>
+		<div class = "add_row">
+			<button type="button" class="btn btn-xs btn-primary" ng-click="jobReport.addJob()">
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+			</button>
+		</div>
+		<div class="human-hour">
+			<span>Всего чел*ч: {{source.jobs.human_hour}}</span>
+			<span class="sum_human_hour"></span>
+		</div>	
+
+		<search-job class="row" search-source="pricelist" search-target="jobReport" promise="pricelist.loadPrice.promise"></search-job>
+		
+		<table>
+			<tr class="head_table">
+				<th>№</th>
+				<th>Наименование</th>
+				<th>ед.изм.</th>
+				<th>норма, чел*ч</th>
+				<th>амортизация</th>
+				<th>кол-во</th>
+				<th>ст.ед., грн</th>
+				<th>сумма, грн</th>
+			</tr>
+			<tr class="job clcAddRow" ng-repeat="job in jobReport.jobs" ng-keyup="common.endEnter($event)">
+				<td>{{job.index}}</td>
+				<td><input type = "text" ng-model="job.name"/></td>
+				<td><input type = "text" ng-model="job.measure"/></td>
+				<td><input type = "text" ng-model="job.human_hour" ng-blur="jobReport.calculate()"/></td>
+				<td><input type = "text" ng-model="job.amortization" ng-blur="jobReport.calculate()"/></td>
+				<td><input type = "text" ng-model="job.number" ng-blur="jobReport.calculate()"/></td>
+				<td>{{job.price}}</td>
+				<td>{{job.sum}}</td>
+				<td class = "btn-delete">
+					<button type="button" class="btn btn-xs btn-danger" ng-click="jobReport.deleteJob(job)">
+						<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+					</button>
+				</td>
+			</tr>
+			<tr class="jobs_reserve">
+				<td></td>
+				<td colspan = '6'>Запас на работы (не используемая часть возвращается)</td>
+				<td>{{source.jobs.reserve}}</td>
+			</tr>
+			<tr class="jobs_sum">
+				<td></td>
+				<td colspan = '6'>Итого строительно-монтажные и пусконаладочные работы, грн</td>
+				<td>{{source.jobs.sum}}</td>
+			</tr>
+		</table>
+	</div>	
+</div>

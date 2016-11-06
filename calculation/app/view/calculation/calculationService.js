@@ -96,8 +96,8 @@ app.service('Calculation', function(JobConstructor, Ni, Common, MaterialConstruc
 		//Запас на материалы
 		this.materials.reserve = Common.toFloat(this.materials.sum*niReserve);
 		// Расходы по доставке и оформлению материалов
-		this.materials.delivery = Common.toFloat((this.materials.sum + this.materials.reserve)*niReserve);
-		this.materials.sum = this.materials.sum + this.materials.reserve + this.materials.delivery;					
+		this.materials.delivery = Common.toFloat((this.materials.sum + this.materials.reserve)*niDelivery);
+		this.materials.sum = Common.toFloat(this.materials.sum + this.materials.reserve + this.materials.delivery);					
 	}
 		
 });
