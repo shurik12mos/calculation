@@ -1,4 +1,4 @@
-<div class="tab-pane calc row" id="calc">
+<div class="tab-pane calc" id="calc">
 	<div class = "head col-sm-6">
 		<div class="head_info">
 			<span>Номер КП</span>
@@ -23,11 +23,24 @@
 		<div class="head_info">
 			<span>Проектировщик</span>
 			<input class="info_input" type = "text" ng-model='calculation.projectDesigner'></input>
-		</div>	
-		<div class="head_info" ng-repeat="worker in workers">
-			<span>Другая информация</span>
-			<textarea class="info_input" type = "text" cols="10" ng-model='worker.name'></textarea>
-		</div>				
+		</div>
+		<div class="head_info">
+			<span>Бригадир</span>
+			<input class="info_input" type = "text" ng-model='jobReport.brigadier'></input>
+		</div>
+		<div class="workers">
+			<h5>Монтажники</h5>
+			<div class = "add_row">
+				<button type="button" class="btn btn-xs btn-primary" ng-click="jobReport.addWorker()">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				</button>
+			</div>
+			<div class="head_info" ng-repeat="worker in jobReport.workers">
+				<input class="info_input" type = "text" ng-model='worker.name' placeholder="Имя"></input>
+				<input class="info_input" type = "text" ng-model='worker.info' placeholder="Телефон, e-mail"></input>
+			</div>
+		</div>
+						
 	</div>
 	<div class="stats col-sm-6">
 	
@@ -40,7 +53,7 @@
 			</button>
 		</div>
 		<div class="human-hour">
-			<span>Всего чел*ч: {{source.jobs.human_hour}}</span>
+			<span>Всего чел*ч: {{jobReport.jobs.human_hour}}</span>
 			<span class="sum_human_hour"></span>
 		</div>	
 
@@ -48,14 +61,28 @@
 		
 		<table>
 			<tr class="head_table">
-				<th>№</th>
-				<th>Наименование</th>
-				<th>ед.изм.</th>
-				<th>норма, чел*ч</th>
-				<th>амортизация</th>
-				<th>кол-во</th>
-				<th>ст.ед., грн</th>
-				<th>сумма, грн</th>
+				<th rowspan="2">№</th>
+				<th rowspan="2">Наименование</th>
+				<th rowspan="2">ед.изм.</th>
+				<th rowspan="2">норма, чел*ч</th>
+				<th rowspan="2">амортизация</th>
+				<th ng-repeat="worker in jobReport.workers" width="200px">{{worker.name}}/{{worker.info}}</th>
+				<th rowspan="2">кол-во</th>
+				<th rowspan="2">ст.ед., грн</th>
+				<th rowspan="2">сумма, грн</th>
+			</tr>
+			<tr ng-show="jobReport.workers.length">
+				<td ng-repeat="worker in jobReport.workers">
+					<table width="200px" >
+						<tr>
+							<td>Сделал кол-во</td>
+							<td>Амортизация</td>
+							<td>Кол-во часов</td>
+							<td>Зарплата</td>
+						</tr>
+					</table>
+				</td>
+				
 			</tr>
 			<tr class="job clcAddRow" ng-repeat="job in jobReport.jobs" ng-keyup="common.endEnter($event)">
 				<td>{{job.index}}</td>
@@ -63,6 +90,16 @@
 				<td><input type = "text" ng-model="job.measure"/></td>
 				<td><input type = "text" ng-model="job.human_hour" ng-blur="jobReport.calculate()"/></td>
 				<td><input type = "text" ng-model="job.amortization" ng-blur="jobReport.calculate()"/></td>
+				<td ng-repeat="worker in jobReport.workers">
+					<table width="200px">
+						<tr>
+							<td><input type = "text" ng-model="worker.number[job.index]" ng-blur="jobReport.calculate()"/></td>
+							<td><input type = "text" ng-model="worker.amortization[job.index]" ng-blur="jobReport.calculate()"/></td>
+							<td><input type = "text" ng-model="worker.hours[job.index]" ng-blur="jobReport.calculate()"/></td>
+							<td><input type = "text" ng-model="worker.salary[job.index]" ng-blur="jobReport.calculate()"/></td>
+						</tr>						
+					</table>
+				</td>
 				<td><input type = "text" ng-model="job.number" ng-blur="jobReport.calculate()"/></td>
 				<td>{{job.price}}</td>
 				<td>{{job.sum}}</td>
@@ -75,12 +112,12 @@
 			<tr class="jobs_reserve">
 				<td></td>
 				<td colspan = '6'>Запас на работы (не используемая часть возвращается)</td>
-				<td>{{source.jobs.reserve}}</td>
+				<td>{{jobReport.jobs.reserve}}</td>
 			</tr>
 			<tr class="jobs_sum">
 				<td></td>
 				<td colspan = '6'>Итого строительно-монтажные и пусконаладочные работы, грн</td>
-				<td>{{source.jobs.sum}}</td>
+				<td>{{jobReport.jobs.sum}}</td>
 			</tr>
 		</table>
 	</div>	

@@ -7,6 +7,11 @@ app.service('JobReport', function(Common, Calculation){
 	
 	angular.merge(this, Calculation);
 	
+	this.workers = [];
+	
+	// description - refresh jobs from this.jobs and Calculation.jobs
+	// in - this.jobs
+	// out - void
 	this.refreshJobs = function(jobs){
 		if (!jobs || !angular.isArray(jobs)) return;
 		
@@ -34,9 +39,47 @@ app.service('JobReport', function(Common, Calculation){
 		
 	};
 	
+	// description - add empty job to a table-jobs
+	// in - job from search job or empty(then create empty job)
+	// out - void
 	this.addJob = function(job) {		
 		Calculation.addJob.call(self, job);
 		
 		this.jobs[this.jobs.length-1].jobReport = true;
-	}	
+	};
+	
+	// description - add new worker
+	//in - void (create empty)
+	// out - void (add new worker in this.workers)
+	this.addWorker = function(){
+		var newWorker = {
+			name: "",
+			info: "",
+			number: [],
+			amortization: [],
+			hour: [],
+			salary: []
+		};
+		
+		console.log("newWorker", this.workers);
+		
+		
+		this.workers.push(newWorker);
+	};
+	
+	// description - calculate workers hour, salary before promotion
+	// in - void (use this.workers)
+	// out - void
+	this.workersCalculate = function(){
+		
+	};
+	
+	// description - calculate jobReport (use Calculation.calculate and this.workersCalculate)
+	// in - void (use this.jobs and this.workers)
+	// out - void
+	this.calculate = function(){
+		Calculation.calculate.call(self);
+		
+		this.workersCalculate();
+	};
 });
