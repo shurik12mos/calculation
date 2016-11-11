@@ -98,12 +98,7 @@ app.factory('JobConstructor', function(Common, Ni){
 			sellExp = Ni.prop.sellExp.percent/100,
 			singleTax = Ni.prop.singleTax.percent/100,
 			vat = Ni.prop.VAT.percent/100,
-			salaryMainWorkers;
-			
-			this.human_hour = Common.toFloat(this.human_hour, 2);
-			this.rank = Common.toFloat(this.rank);
-			humanHourPrice = Common.toFloat(humanHourPrice);
-			this.amortization = Common.toFloat(this.amortization, 2);
+			salaryMainWorkers;	
 			
 			this.salaryMainWorkers = (this.human_hour*this.rank*humanHourPrice);
 			this.price = this.salaryMainWorkers;					
@@ -115,6 +110,11 @@ app.factory('JobConstructor', function(Common, Ni){
 			this.price *= (1+vat);		
 			
 			this.price = Common.toFloat(this.price);
+			
+			this.human_hour = Common.toFloat(this.human_hour, 2);
+			this.rank = Common.toFloat(this.rank);
+			humanHourPrice = Common.toFloat(humanHourPrice);
+			this.amortization = Common.toFloat(this.amortization, 2);
 						
 		};
 		

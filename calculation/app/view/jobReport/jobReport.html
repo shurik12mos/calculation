@@ -1,4 +1,4 @@
-<div class="tab-pane calc" id="calc">
+<div class="tab-pane calc" >
 	<div class = "head col-sm-6">
 		<div class="head_info">
 			<span>Номер КП</span>
@@ -31,7 +31,7 @@
 		<div class="workers">
 			<h5>Монтажники</h5>
 			<div class = "add_row">
-				<button type="button" class="btn btn-xs btn-primary" ng-click="jobReport.addWorker()">
+				<button type="button" class="btn btn-xs btn-primary" ng-click="jobReport.addWorker(); lengthBottom = lengthBottom+1">
 					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 				</button>
 			</div>
@@ -59,46 +59,46 @@
 
 		<search-job class="row" search-source="pricelist" search-target="jobReport" promise="pricelist.loadPrice.promise"></search-job>
 		
-		<table>
+		<table class="jobReport-table">
 			<tr class="head_table">
 				<th rowspan="2">№</th>
 				<th rowspan="2">Наименование</th>
+				<th rowspan="2">Разряд работ</th>
 				<th rowspan="2">ед.изм.</th>
 				<th rowspan="2">норма, чел*ч</th>
 				<th rowspan="2">амортизация</th>
-				<th ng-repeat="worker in jobReport.workers" width="200px">{{worker.name}}/{{worker.info}}</th>
+				<th class="worker-info"ng-repeat="worker in jobReport.workers">{{worker.name}}/{{worker.info}}</th>
 				<th rowspan="2">кол-во</th>
 				<th rowspan="2">ст.ед., грн</th>
 				<th rowspan="2">сумма, грн</th>
 			</tr>
-			<tr ng-show="jobReport.workers.length">
-				<td ng-repeat="worker in jobReport.workers">
-					<table width="200px" >
-						<tr>
-							<td>Сделал кол-во</td>
-							<td>Амортизация</td>
-							<td>Кол-во часов</td>
-							<td>Зарплата</td>
-						</tr>
-					</table>
-				</td>
+			<tr>
+				<th ng-repeat="worker in jobReport.workers" class="worker worker-head">
+					<div class="worker-container">
+						<div class="worker-content">Кол-во</div>
+						<div class="worker-content">Закрыл амортизации</div>
+						<div class="worker-content">Закрыл часов</div>
+						<div class="worker-content">З/п грн</div>						
+					</div>
+				</th>
 				
 			</tr>
 			<tr class="job clcAddRow" ng-repeat="job in jobReport.jobs" ng-keyup="common.endEnter($event)">
 				<td>{{job.index}}</td>
-				<td><input type = "text" ng-model="job.name"/></td>
+				<td>					
+					<input-div target="job.name"></input-div>
+				</td>
+				<td><input type = "text" ng-model="job.rank"/></td>
 				<td><input type = "text" ng-model="job.measure"/></td>
 				<td><input type = "text" ng-model="job.human_hour" ng-blur="jobReport.calculate()"/></td>
 				<td><input type = "text" ng-model="job.amortization" ng-blur="jobReport.calculate()"/></td>
-				<td ng-repeat="worker in jobReport.workers">
-					<table width="200px">
-						<tr>
-							<td><input type = "text" ng-model="worker.number[job.index]" ng-blur="jobReport.calculate()"/></td>
-							<td><input type = "text" ng-model="worker.amortization[job.index]" ng-blur="jobReport.calculate()"/></td>
-							<td><input type = "text" ng-model="worker.hours[job.index]" ng-blur="jobReport.calculate()"/></td>
-							<td><input type = "text" ng-model="worker.salary[job.index]" ng-blur="jobReport.calculate()"/></td>
-						</tr>						
-					</table>
+				<td ng-repeat="worker in jobReport.workers" class="worker">
+					<div class="worker-container">
+						<div class="worker-content"><input type = "text" ng-model="worker.number[job.index]" ng-blur="jobReport.calculate()"/></div>
+						<div class="worker-content">{{worker.amortization[job.index]}}</div>
+						<div class="worker-content">{{worker.hours[job.index]}}</div>
+						<div class="worker-content">{{worker.salary[job.index]}}</div>												
+					</div>
 				</td>
 				<td><input type = "text" ng-model="job.number" ng-blur="jobReport.calculate()"/></td>
 				<td>{{job.price}}</td>
@@ -111,12 +111,12 @@
 			</tr>
 			<tr class="jobs_reserve">
 				<td></td>
-				<td colspan = '6'>Запас на работы (не используемая часть возвращается)</td>
+				<td colspan = '{{lengthBottom}}'>Запас на работы (не используемая часть возвращается)</td>
 				<td>{{jobReport.jobs.reserve}}</td>
 			</tr>
 			<tr class="jobs_sum">
 				<td></td>
-				<td colspan = '6'>Итого строительно-монтажные и пусконаладочные работы, грн</td>
+				<td colspan = '{{lengthBottom}}'>Итого строительно-монтажные и пусконаладочные работы, грн</td>
 				<td>{{jobReport.jobs.sum}}</td>
 			</tr>
 		</table>

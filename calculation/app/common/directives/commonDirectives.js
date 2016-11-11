@@ -142,4 +142,27 @@ app.directive('searchJob', ['Pricelist', function(Pricelist) {
 	};
 }]);
 
+//description - directive with div and textarea. Show content in div, when click in it 
+//				it show content in textarea to change it. when blur textarea - show div again
+//in - target is content to show and change
+//out - void
+app.directive('inputDiv', ['Common', function(Common) {
+	return  {
+		restrict: 'E',
+		scope: {
+			target: "=target"
+		},
+		templateUrl: 'common/directives/inputDiv/inputDiv.html',
+		link: function(scope, element, attrs) {	
+			var target = scope.target;			
+			
+			scope.focus = false;
+			
+			element.on('click', function(e){				
+				e.target.parentElement.getElementsByTagName('textarea')[0].focus();				
+			});	
+		}
+	};
+}]);
+
 

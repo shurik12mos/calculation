@@ -1,0 +1,62 @@
+
+
+.worker {	
+	 
+	.worker-container {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: center;
+		align-items: stretch;
+		width: 360px;
+		margin: -2px -5px;
+						
+		.worker-content{				
+			box-sizing: border-box;
+			width: 25%;			
+			border-right: 1px solid #000;
+			text-align: center;
+			padding: 2px;
+			
+			&:last-child {
+				border-right: none;
+			}
+		}
+	}
+}
+
+.worker-head {
+	font-size: 12px;	
+}
+
+.worker-info {
+	text-align: center;
+}
+
+.jobReport-table {
+	width: auto;
+	
+	tr {
+		th, td {
+			&:nth-child(2) {
+				min-width: 300px;
+			}
+		}
+	}
+	
+	textarea {
+		overflow: visible;
+	}
+}
+
+input-div {
+	display: block;
+	height: 100%;
+	width: 100%;
+	
+	div {
+		height: 100%;
+		min-height: 20px;
+		word-wrap: break-word
+	}
+}

@@ -73,7 +73,7 @@ app.service('Calculation', function(JobConstructor, Ni, Common, MaterialConstruc
 			element.sumJob();
 			total += element.sum;
 			totalhh += element.human_hour*element.number;
-			totalam += element.amortization*element.number;
+			totalam += element.amortization*element.number*element.human_hour;
 			sumSalary += element.salaryMainWorkers*element.number;
 		});
 		
@@ -82,7 +82,7 @@ app.service('Calculation', function(JobConstructor, Ni, Common, MaterialConstruc
 		sum = Common.toFloat(total+reserve);
 		this.jobs.reserve = reserve;
 		this.jobs.sum = sum;	
-		this.jobs.human_hour = Common.toFloat(totalhh);	
+		this.jobs.human_hour = totalhh;	
 		
 		Ni.calc(sumSalary, totalam, total);
 		

@@ -6,7 +6,7 @@
 		</button>
 	</div>
 	<div class="human-hour">
-		<span>Всего чел*ч: {{source.jobs.human_hour}}</span>
+		<span>Всего чел*ч: {{source.jobs.human_hour.toFixed(2)}}</span>
 		<span class="sum_human_hour"></span>
 	</div>	
 
@@ -25,7 +25,9 @@
 		</tr>
 		<tr class="job clcAddRow" ng-repeat="job in source.jobs" ng-keyup="common.endEnter($event)">
 			<td>{{job.index}}</td>
-			<td><input type = "text" ng-model="job.name"/></td>
+			<td>
+				<input-div target="job.name"></input-div>
+			</td>
 			<td><input type = "text" ng-model="job.measure"/></td>
 			<td><input type = "text" ng-model="job.human_hour" ng-blur="source.calculate()"/></td>
 			<td><input type = "text" ng-model="job.amortization" ng-blur="source.calculate()"/></td>

@@ -1,0 +1,384 @@
+.calc .right {
+  float: right;
+  overflow: auto;
+  clear: right; }
+
+.calc .head {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+  .calc .head .head_info {
+    margin-top: 10px; }
+    .calc .head .head_info span {
+      display: inline-block;
+      width: 200px; }
+    .calc .head .head_info .info_input {
+      border: none;
+      border-bottom: 1px solid #000;
+      display: inline-block;
+      margin-left: 20px;
+      background-color: #fafafa;
+      min-width: 200px;
+      max-width: 70%; }
+    .calc .head .head_info textarea.info_input {
+      border: 1px solid #000;
+      -webkit-border-radius: 5px;
+      border-radius: 5px;
+      min-width: 300px; }
+
+.calc .prices {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin: 20px auto;
+  font-size: 16px;
+  font-weight: bold; }
+  .calc .prices .sum {
+    display: block;
+    margin-top: 10px;
+    width: 500px; }
+    .calc .prices .sum span {
+      display: inline-block;
+      margin: 0px 5px; }
+    .calc .prices .sum span:first-child {
+      min-width: 150px; }
+    .calc .prices .sum .price {
+      border-bottom: 2px solid #000;
+      min-width: 100px; }
+
+.table_calc {
+  max-width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 15px; }
+  .table_calc h3 {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold; }
+  .table_calc .add_row {
+    font-size: 20px;
+    color: #aaa;
+    float: right;
+    clear: both;
+    overflow: hidden; }
+    .table_calc .add_row span {
+      display: block;
+      padding: 5px;
+      top: 0px; }
+  .table_calc .human-hour {
+    float: right;
+    clear: right;
+    overflow: hidden;
+    min-width: 50px; }
+    .table_calc .human-hour span {
+      display: inline-block;
+      text-align: right;
+      font-size: 14px;
+      margin-bottom: 0px;
+      min-width: 20px;
+      min-height: 14px; }
+  .table_calc table {
+    text-align: left;
+    min-width: 100%;
+    margin: 0px auto; }
+    .table_calc table td, .table_calc table th {
+      position: relative;
+      border: 1px solid #000;
+      padding: 2px 5px; }
+    .table_calc table td:nth-child(1), .table_calc table th:nth-child(1) {
+      text-align: center;
+      min-width: 30px; }
+    .table_calc table td:nth-child(2), .table_calc table th:nth-child(2) {
+      width: 50%; }
+    .table_calc table input, .table_calc table textarea {
+      border: none;
+      outline: none;
+      background-color: #fff;
+      width: 100%;
+      overflow-y: visible;
+      height: 100%; }
+  .table_calc .btn-delete {
+    position: absolute;
+    border: none;
+    width: 22px;
+    vertical-align: middle; }
+
+.worker .worker-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  width: 360px;
+  margin: -2px -5px; }
+  .worker .worker-container .worker-content {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 25%;
+    border-right: 1px solid #000;
+    text-align: center;
+    padding: 2px; }
+    .worker .worker-container .worker-content:last-child {
+      border-right: none; }
+
+.worker-head {
+  font-size: 12px; }
+
+.worker-info {
+  text-align: center; }
+
+.jobReport-table {
+  width: auto; }
+  .jobReport-table tr th:nth-child(2), .jobReport-table tr td:nth-child(2) {
+    min-width: 300px; }
+  .jobReport-table textarea {
+    overflow: visible; }
+
+input-div {
+  display: block;
+  height: 100%;
+  width: 100%; }
+  input-div div {
+    height: 100%;
+    min-height: 20px;
+    word-wrap: break-word; }
+
+#ni {
+  margin-top: 50px; }
+  #ni .ni-block {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    text-align: center;
+    border-top: 1px solid #a9825a; }
+    #ni .ni-block .ni-default, #ni .ni-block .ni-change {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+      padding: 5px;
+      border-right: 1px solid #a9825a;
+      overflow: hidden; }
+    #ni .ni-block .left {
+      text-align: left; }
+    #ni .ni-block .ni-default:first-child {
+      border-left: 1px solid #a9825a; }
+    #ni .ni-block .ni-change {
+      padding: 0px; }
+      #ni .ni-block .ni-change input {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 0, 0.31);
+        padding: 5px;
+        overflow: hidden;
+        border: none;
+        text-align: center; }
+  #ni .human-hour {
+    border: none !important;
+    margin-bottom: 10px; }
+    #ni .human-hour .ni-default, #ni .human-hour .ni-change {
+      display: block;
+      text-align: center;
+      border-left: none !important;
+      border-right: none;
+      border-bottom: 1px solid #a9825a; }
+
+#pricelist {
+  margin-top: 30px;
+  background-color: #fafafa;
+  min-height: 100vh; }
+  #pricelist .spinner {
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    text-align: center;
+    color: #888;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    margin: auto;
+    -webkit-animation: rotate 2s linear infinite;
+    animation: rotate 2s linear infinite;
+    -webkit-transform-origin: center center;
+    -ms-transform-origin: center center;
+    transform-origin: center center; }
+    #pricelist .spinner i {
+      font-size: 36px;
+      line-height: 42px; }
+
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  50% {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
+@keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  50% {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+  #pricelist .panel-heading, #pricelist .panel, #pricelist .panel-content {
+    padding: 0px;
+    margin: 0px;
+    border: none;
+    background-color: #fff; }
+  #pricelist .category.checked > .panel-heading > h4 {
+    background-color: #43b4de;
+    color: white; }
+  #pricelist .section {
+    overflow: hidden; }
+  #pricelist .category {
+    border: 1px solid #eeeeee;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden; }
+    #pricelist .category h4 {
+      display: block;
+      padding-bottom: 20px;
+      padding-top: 20px;
+      background-color: #fff;
+      text-align: center;
+      font-size: 14px;
+      font-family: "Raleway";
+      color: #333333;
+      font-weight: bold;
+      text-transform: uppercase;
+      line-height: 1.2;
+      width: 100%;
+      line-height: 100%;
+      cursor: pointer;
+      -webkit-transition: all 0.3s ease-out;
+      transition: all 0.3s ease-out; }
+      #pricelist .category h4:hover {
+        background-color: #43b4de;
+        color: white; }
+      #pricelist .category h4.checked {
+        background-color: #43b4de;
+        color: white; }
+    #pricelist .category a:hover, #pricelist .category a:focus, #pricelist .category a:visited {
+      text-decoration: none; }
+  #pricelist .section {
+    border: 1px solid #eeeeee;
+    margin-top: 5px; }
+    #pricelist .section h4 {
+      display: block;
+      padding: 10px 15px;
+      background-color: #fff;
+      text-align: left;
+      font-size: 16px;
+      font-family: "Raleway";
+      color: #333333;
+      line-height: 1.2;
+      width: 100%;
+      line-height: 100%; }
+      #pricelist .section h4:hover {
+        background-color: #999;
+        color: white; }
+      #pricelist .section h4:hover, #pricelist .section h4:focus, #pricelist .section h4:visited {
+        text-decoration: none; }
+      #pricelist .section h4[aria-expanded="true"] {
+        background-color: #999;
+        color: white; }
+  #pricelist .job {
+    display: block;
+    overflow: auto;
+    padding: 7px 10px;
+    background-color: #fff;
+    text-align: left;
+    font-size: 14px;
+    font-family: "Raleway";
+    color: #333333;
+    line-height: 1.2;
+    cursor: pointer;
+    -webkit-transition: opacity 1s ease-out;
+    transition: opacity 1s ease-out;
+    position: relative; }
+    #pricelist .job span {
+      opacity: 0;
+      color: #00d800;
+      position: absolute !important;
+      top: 50%;
+      display: block;
+      width: 15px;
+      height: 15px;
+      margin-top: -7.5px; }
+    #pricelist .job:hover {
+      background-color: rgba(221, 221, 221, 0.3); }
+    #pricelist .job > div:after {
+      clear: both; }
+    #pricelist .job.checked {
+      background-color: rgba(0, 216, 0, 0.12); }
+      #pricelist .job.checked span {
+        -webkit-animation: checkedJobIn .5s ease-out alternate;
+        animation: checkedJobIn .5s ease-out alternate;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both; }
+
+@-webkit-keyframes checkedJobIn {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
+@keyframes checkedJobIn {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+    #pricelist .job .jobName {
+      padding-left: 20px;
+      position: relative; }
+
+#searchJob {
+  position: relative;
+  z-index: 10;
+  overflow: auto;
+  width: 100%; }
+  #searchJob .search-form {
+    float: none; }
+    #searchJob .search-form input {
+      width: 100%; }
+  #searchJob .search-results {
+    background-color: #f9f7f7;
+    padding-top: 20px;
+    padding-bottom: 50px;
+    margin-left: 15px;
+    margin-right: 15px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px; }
+    #searchJob .search-results .job {
+      position: relative;
+      z-index: 2; }

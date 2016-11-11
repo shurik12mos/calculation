@@ -110,11 +110,10 @@ app.service('Ni', function(){
 		name: "Амортизация оборудования",
 		id: 9,
 		value: 0,
-		measure: "грн",
-		percent: 0,
+		measure: "грн",		
 		calculate: function(sum, amortization){
 			if (!amortization) return;
-			this.value = parseFloat(amortization.toFixed(2));
+			this.value = Math.round(amortization*100)/100;
 		}		
 	};
 	
@@ -130,7 +129,7 @@ app.service('Ni', function(){
 			this.value = self.prop.salaryMainWorkers.value + self.prop.salaryBrigadier.value + self.prop.salaryManager.value + self.prop.salaryProject.value;
 			this.value += self.prop.profit.value + self.prop.overheadExp.value + self.prop.adminExp.value + self.prop.amortizations.value;
 			this.value *= this.percent/100;
-			this.value = parseFloat(this.value.toFixed(2));
+			this.value = Math.round(this.value*100)/100;
 		}		
 	};
 	
@@ -146,7 +145,7 @@ app.service('Ni', function(){
 			this.value = self.prop.salaryMainWorkers.value + self.prop.salaryBrigadier.value + self.prop.salaryManager.value + self.prop.salaryProject.value;
 			this.value += self.prop.promotion.value;
 			this.value *= (1/(1 - this.percent/100)-1);
-			this.value =  parseFloat(this.value.toFixed(2));
+			this.value =  Math.round(this.value*100)/100;
 		}
 	};
 	
@@ -162,7 +161,7 @@ app.service('Ni', function(){
 			this.value = self.prop.salaryMainWorkers.value + self.prop.salaryBrigadier.value + self.prop.salaryManager.value + self.prop.salaryProject.value;			
 			this.value += self.prop.promotion.value + self.prop.incomeTax.value;
 			this.value *= this.percent/100;
-			this.value =  parseFloat(this.value.toFixed(2));
+			this.value =  Math.round(this.value*100)/100;
 		}		
 	};
 	
@@ -179,7 +178,7 @@ app.service('Ni', function(){
 			this.value += self.prop.profit.value + self.prop.overheadExp.value + self.prop.adminExp.value + self.prop.amortizations.value;
 			this.value += self.prop.promotion.value + self.prop.incomeTax.value + self.prop.singleSocialTax.value;
 			this.value *= (1/(1 - this.percent/100)-1);
-			this.value =  parseFloat(this.value.toFixed(2));
+			this.value =  Math.round(this.value*100)/100;
 		}		
 	};
 	
@@ -189,14 +188,14 @@ app.service('Ni', function(){
 		id: 14,
 		value: 0,
 		measure: "грн",
-		percent: 0,
+		percent: 5,
 		defaultPercent: 5,
 		calculate: function(sum){
 			this.value = self.prop.salaryMainWorkers.value + self.prop.salaryBrigadier.value + self.prop.salaryManager.value + self.prop.salaryProject.value;
 			this.value += self.prop.profit.value + self.prop.overheadExp.value + self.prop.adminExp.value + self.prop.amortizations.value;
 			this.value += self.prop.promotion.value + self.prop.incomeTax.value + self.prop.singleSocialTax.value + self.prop.sellExp.value;
 			this.value *= (1/(1 - this.percent/100)-1);
-			this.value =  parseFloat(this.value.toFixed(2));
+			this.value =  Math.round(this.value*100)/100;
 		}		
 	};
 	
@@ -214,28 +213,47 @@ app.service('Ni', function(){
 			this.value += self.prop.promotion.value + self.prop.incomeTax.value + self.prop.singleSocialTax.value + self.prop.sellExp.value;
 			this.value += self.prop.singleTax.value;
 			this.value *= (1/(1 - this.percent/100)-1);
-			this.value =  parseFloat(this.value.toFixed(2));
+			this.value =  Math.round(this.value*100)/100;
 		}			
 	};
+	
+	this.prop.total = {
+		name: "Всего",
+		id: 16,
+		value: 0,
+		measure: "грн",		
+		calculate: function(sum){
+			var total = 0, currentProp;
+			for (var key in self.prop) {
+				currentProp = self.prop[key];
+				
+				if(!currentProp.id || currentProp.id>15) continue;
+				total += currentProp.value;
+			}
+			
+			this.value =  Math.round(total*100)/100;
+			console.log("total", total, this.value);
+		}
+	}
 	
 	// Запас на работы и материалы
 	this.prop.reserve = {
 		name: "Запас на работы и материалы",
-		id: 16,
+		id: 17,
 		value: 0,
 		measure: "грн",
 		percent: 5,
 		defaultPercent: 5,
 		calculate: function(sum, am, total){
 			this.value = total*this.percent/100;
-			this.value =  parseFloat(this.value.toFixed(2));
+			this.value =  Math.round(this.value*100)/100;
 		}			
 	};
 	
 	// Расходы по оформлению и доставке материалов
 	this.prop.deliveryExp = {
 		name: "Расходы по оформлению и доставке материалов",
-		id: 17,
+		id: 18,
 		value: 0,
 		measure: "грн",
 		percent: 10,
@@ -243,27 +261,13 @@ app.service('Ni', function(){
 		calculate: function(sum, am, total, totalMaterials){			
 			this.value = totalMaterials*this.percent/100;
 			if (!Number.isFinite(this.value)) this.value = 0;
-			this.value =  parseFloat(this.value.toFixed(2));
+			this.value =  Math.round(this.value*100)/100;
 		}
 	};
 	
 	// Скидка по прибыли и административным
 	this.prop.discountProfit = {
 		name: "Скидка по прибыли и административным",
-		id: 18,
-		value: 0,
-		measure: "грн",
-		percent: 0,
-		defaultPercent: 0,
-		calculate: function(sum, am, total){
-			this.value = total*this.percent/100;
-			this.value =  parseFloat(this.value.toFixed(2));
-		}
-	};
-	
-	// Скидка по поощрениям
-	this.prop.discountPromotion = {
-		name: "Скидка по поощрениям",
 		id: 19,
 		value: 0,
 		measure: "грн",
@@ -271,14 +275,28 @@ app.service('Ni', function(){
 		defaultPercent: 0,
 		calculate: function(sum, am, total){
 			this.value = total*this.percent/100;
-			this.value =  parseFloat(this.value.toFixed(2));
+			this.value =  Math.round(this.value*100)/100;
+		}
+	};
+	
+	// Скидка по поощрениям
+	this.prop.discountPromotion = {
+		name: "Скидка по поощрениям",
+		id: 20,
+		value: 0,
+		measure: "грн",
+		percent: 0,
+		defaultPercent: 0,
+		calculate: function(sum, am, total){
+			this.value = total*this.percent/100;
+			this.value =  Math.round(this.value*100)/100;
 		}
 	};
 	
 	// Возможная премия по договору
 	this.prop.possibleBonus = {
 		name: "Возможная премия по договору",
-		id: 20,
+		id: 21,
 		value: 0,
 		measure: "грн"
 	};

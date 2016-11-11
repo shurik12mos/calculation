@@ -58,9 +58,10 @@
 				min-width: 100px;
 			}
 		}
-	}
-	
-	.table_calc {
+	}	
+}
+
+.table_calc {
 		max-width: 80%;
 		margin-left: 10%;
 		margin-right: 10%;
@@ -136,11 +137,9 @@
 		}		
 		
 		.btn-delete {
-			position: absolute;
-			right: -2px;					
+			position: absolute;			
 			border: none;
 			width: 22px;
 			vertical-align: middle;			
 		}
 	}
-}

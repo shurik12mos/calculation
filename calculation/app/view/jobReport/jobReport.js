@@ -21,4 +21,6 @@ app.controller('JobReportCtrl', ['$scope', 'Calculation', 'Ni', 'Pricelist', 'Co
 	$scope.common = Common;
 	$scope.jobReport = JobReport;
 	$scope.jobReport.refreshJobs(Calculation.jobs);	
+	
+	$scope.lengthBottom = $scope.jobReport.workers.length+7;
 }]);
