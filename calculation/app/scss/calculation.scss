@@ -62,84 +62,82 @@
 }
 
 .table_calc {
-		max-width: 80%;
-		margin-left: 10%;
-		margin-right: 10%;
-		margin-bottom: 15px;
+	max-width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;
+	margin-bottom: 15px;
 		
-		h3 {
-			text-align: center;
-			font-size: 18px;
-			font-weight: bold;
-		}
-		
-		.add_row {
-			font-size: 20px;
-			color: #aaa;
-			float: right;
-			clear: both;
-			overflow: hidden;
-			
-			span {
-				display: block;
-				padding: 5px;
-				top: 0px;
-			}
-		}
-		
-		.human-hour {
-			float: right;
-			clear: right;
-			overflow: hidden;
-			min-width: 50px;
-			
-			span {
-				display: inline-block;				
-				text-align: right;
-				font-size: 14px;				
-				margin-bottom: 0px;
-				min-width: 20px;
-				min-height: 14px;
-			}
-		}
-		
-		
-				
-		table {
-			text-align: left;
-			min-width: 100%;
-			margin: 0px auto;
-			
-			
-			td, th {
-				position: relative;				
-				border: 1px solid #000;
-				padding: 2px 5px;
-			}
-			
-			td:nth-child(1), th:nth-child(1) {
-				text-align: center;
-				min-width: 30px;
-			}
-			
-			td:nth-child(2), th:nth-child(2) {
-				width: 50%;
-			}
-			
-			input, textarea {
-				border: none;
-				outline: none;
-				background-color: #fff;
-				width: 100%;
-				overflow-y: visible;
-				height: 100%;
-			}
-		}		
-		
-		.btn-delete {
-			position: absolute;			
-			border: none;
-			width: 22px;
-			vertical-align: middle;			
-		}
+	h3 {
+		text-align: center;
+		font-size: 18px;
+		font-weight: bold;
 	}
+		
+	.human-hour {
+		float: right;
+		clear: right;
+		overflow: hidden;
+		min-width: 50px;
+		
+		span {
+			display: inline-block;				
+			text-align: right;
+			font-size: 14px;				
+			margin-bottom: 0px;
+			min-width: 20px;
+			min-height: 14px;
+		}
+	}	
+}
+
+.table-jobs {
+	text-align: left;
+	min-width: 100%;
+	margin: 0px auto;
+	
+			
+	td, th {
+		position: relative;				
+		border: 1px solid #000;
+		padding: 2px 5px;
+	}
+		
+	td:nth-child(1), th:nth-child(1) {
+		text-align: center;
+		min-width: 30px;
+	}
+			
+	td:nth-child(2), th:nth-child(2) {
+		width: 50%;
+	}
+			
+	input, textarea {
+		border: none;
+		outline: none;
+		background-color: #fff;
+		width: 100%;
+		overflow-y: visible;
+		height: 100%;
+	}
+}	
+
+.add_row {
+	font-size: 20px;
+	color: #aaa;
+	float: right;
+	clear: both;
+	overflow: hidden;
+			
+	span {
+		display: block;
+		padding: 5px;
+		top: 0px;
+	}
+}	
+		
+.btn-delete {
+	position: absolute;			
+	border: none;
+	width: 22px;
+	vertical-align: middle;			
+}

@@ -1,6 +1,28 @@
+.stats-table {
+	border: none;
+	
+	td, th {		
+		padding: 5px 2px;
+		min-width: 50px;
+		text-align: center;
+	}
+	
+	tr td:nth-child(1),
+	tr td:nth-child(1)	{
+		text-align: left
+	}
+	
+	.no-border {
+		border: none;	
+	}
 
+	.border-bottom {
+		border-bottom: 1px solid #fff;
+	}
+}
 
 .worker {	
+	padding: 0px 0px;
 	 
 	.worker-container {
 		display: flex;
@@ -8,15 +30,17 @@
 		flex-wrap: nowrap;
 		justify-content: center;
 		align-items: stretch;
-		width: 360px;
-		margin: -2px -5px;
+		width: 360px;		
+		height: 100%;
 						
 		.worker-content{				
 			box-sizing: border-box;
+			height: 100%;
+			min-height: 27px;			
 			width: 25%;			
 			border-right: 1px solid #000;
 			text-align: center;
-			padding: 2px;
+			padding: 2px 5px;
 			
 			&:last-child {
 				border-right: none;
@@ -58,5 +82,48 @@ input-div {
 		height: 100%;
 		min-height: 20px;
 		word-wrap: break-word
+	}
+}
+
+.workers-list {
+	position: relative;
+	overflow: hidden;
+	
+	.btn-delete {
+		right: 2px;
+		bottom: 0px;
+		top: 0px;
+		margin: auto;
+		width: 23px;
+		
+		button {
+			width: 22px;
+			
+			span {
+				max-width: 100%;
+			}
+		}		
+	}
+}
+
+.jr-workers-plan {
+	margin-top: 50px;
+	margin-bottom: 30px;
+	
+	table {
+		width: auto;		
+	}
+	.worker-fact-time {
+		width: 100px;
+		overflow: hidden;
+	}
+	
+	.wp-small {
+		width: 100px;
+	}
+	
+	.wp-big {
+		width: auto;
+		min-width: 200px;
 	}
 }

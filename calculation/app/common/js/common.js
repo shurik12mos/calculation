@@ -151,7 +151,7 @@ app.factory('MaterialConstructor', function(Common, Ni){
 // сервис общедоступных функций
 app.service('Common', function(){
 	// функция преобразования к дробному числу. По умолчанию 2 знака после запятой.
-	// если не получается преобразовать к числу, то возвращается слово NaN
+	// если не получается преобразовать к числу, то возвращается слово 0
 	this.toFloat = function(element, n) {
 		if (!element) element = 0;
 		if (!n) n = 2;
@@ -162,7 +162,7 @@ app.service('Common', function(){
 		if (Number.isFinite(element)) {
 			return Math.round(element*Math.pow(10, n))/Math.pow(10, n);
 		}else {
-			return NaN;
+			return 0;
 		}
 	};
 	
@@ -194,6 +194,13 @@ app.service('Common', function(){
 			return;
 		}
 		event.target.blur();		
+	}
+	
+	this.setIndex = function(arr) {
+		if (!angular.isArray(arr)) return;
+		arr.forEach(function(e, i, a) {			
+			e.index = i+1;
+		});
 	}
 	
 });

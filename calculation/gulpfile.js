@@ -26,7 +26,8 @@ gulp.task('scss', function() {
             sassDir: 'scss',
             cssDir: 'css',
             force: true
-        }))	
+        }))
+	.pipe(concat('all.css'))
 	.pipe(autoprefixer({
             browsers: ['last 16 versions'],
             cascade: false

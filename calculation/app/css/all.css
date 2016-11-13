@@ -57,16 +57,6 @@
     text-align: center;
     font-size: 18px;
     font-weight: bold; }
-  .table_calc .add_row {
-    font-size: 20px;
-    color: #aaa;
-    float: right;
-    clear: both;
-    overflow: hidden; }
-    .table_calc .add_row span {
-      display: block;
-      padding: 5px;
-      top: 0px; }
   .table_calc .human-hour {
     float: right;
     clear: right;
@@ -79,64 +69,95 @@
       margin-bottom: 0px;
       min-width: 20px;
       min-height: 14px; }
-  .table_calc table {
-    text-align: left;
-    min-width: 100%;
-    margin: 0px auto; }
-    .table_calc table td, .table_calc table th {
-      position: relative;
-      border: 1px solid #000;
-      padding: 2px 5px; }
-    .table_calc table td:nth-child(1), .table_calc table th:nth-child(1) {
-      text-align: center;
-      min-width: 30px; }
-    .table_calc table td:nth-child(2), .table_calc table th:nth-child(2) {
-      width: 50%; }
-    .table_calc table input, .table_calc table textarea {
-      border: none;
-      outline: none;
-      background-color: #fff;
-      width: 100%;
-      overflow-y: visible;
-      height: 100%; }
-  .table_calc .btn-delete {
-    position: absolute;
-    border: none;
-    width: 22px;
-    vertical-align: middle; }
 
-.worker .worker-container {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-flex-wrap: nowrap;
-  -ms-flex-wrap: nowrap;
-  flex-wrap: nowrap;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: stretch;
-  -webkit-align-items: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  width: 360px;
-  margin: -2px -5px; }
-  .worker .worker-container .worker-content {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    width: 25%;
-    border-right: 1px solid #000;
+.table-jobs {
+  text-align: left;
+  min-width: 100%;
+  margin: 0px auto; }
+  .table-jobs td, .table-jobs th {
+    position: relative;
+    border: 1px solid #000;
+    padding: 2px 5px; }
+  .table-jobs td:nth-child(1), .table-jobs th:nth-child(1) {
     text-align: center;
-    padding: 2px; }
-    .worker .worker-container .worker-content:last-child {
-      border-right: none; }
+    min-width: 30px; }
+  .table-jobs td:nth-child(2), .table-jobs th:nth-child(2) {
+    width: 50%; }
+  .table-jobs input, .table-jobs textarea {
+    border: none;
+    outline: none;
+    background-color: #fff;
+    width: 100%;
+    overflow-y: visible;
+    height: 100%; }
+
+.add_row {
+  font-size: 20px;
+  color: #aaa;
+  float: right;
+  clear: both;
+  overflow: hidden; }
+  .add_row span {
+    display: block;
+    padding: 5px;
+    top: 0px; }
+
+.btn-delete {
+  position: absolute;
+  border: none;
+  width: 22px;
+  vertical-align: middle; }
+
+.stats-table {
+  border: none; }
+  .stats-table td, .stats-table th {
+    padding: 5px 2px;
+    min-width: 50px;
+    text-align: center; }
+  .stats-table tr td:nth-child(1),
+  .stats-table tr td:nth-child(1) {
+    text-align: left; }
+  .stats-table .no-border {
+    border: none; }
+  .stats-table .border-bottom {
+    border-bottom: 1px solid #fff; }
+
+.worker {
+  padding: 0px 0px; }
+  .worker .worker-container {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    width: 360px;
+    height: 100%; }
+    .worker .worker-container .worker-content {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      height: 100%;
+      min-height: 27px;
+      width: 25%;
+      border-right: 1px solid #000;
+      text-align: center;
+      padding: 2px 5px; }
+      .worker .worker-container .worker-content:last-child {
+        border-right: none; }
 
 .worker-head {
   font-size: 12px; }
@@ -159,6 +180,34 @@ input-div {
     height: 100%;
     min-height: 20px;
     word-wrap: break-word; }
+
+.workers-list {
+  position: relative;
+  overflow: hidden; }
+  .workers-list .btn-delete {
+    right: 2px;
+    bottom: 0px;
+    top: 0px;
+    margin: auto;
+    width: 23px; }
+    .workers-list .btn-delete button {
+      width: 22px; }
+      .workers-list .btn-delete button span {
+        max-width: 100%; }
+
+.jr-workers-plan {
+  margin-top: 50px;
+  margin-bottom: 30px; }
+  .jr-workers-plan table {
+    width: auto; }
+  .jr-workers-plan .worker-fact-time {
+    width: 100px;
+    overflow: hidden; }
+  .jr-workers-plan .wp-small {
+    width: 100px; }
+  .jr-workers-plan .wp-big {
+    width: auto;
+    min-width: 200px; }
 
 #ni {
   margin-top: 50px; }
@@ -364,7 +413,6 @@ input-div {
 
 #searchJob {
   position: relative;
-  z-index: 10;
   overflow: auto;
   width: 100%; }
   #searchJob .search-form {

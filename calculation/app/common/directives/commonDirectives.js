@@ -165,4 +165,32 @@ app.directive('inputDiv', ['Common', function(Common) {
 	};
 }]);
 
+//description - directive make value of element is number looks like X.XX
+//in - value of element
+//out - value to number
+app.directive('number', ['Common', function(Common) {
+	return  {
+		restrict: 'C',
+		scope: {
+			fraction: "=?dataFraction"
+		},		
+		link: function(scope, element, attrs) {	
+			var self = this;
+			scope.value = this.value;
+			
+			scope.$watch('value', function(oldVal, newVal){
+				var value;
+				
+				value = self.value;
+				value = Common.toFloat(value, scope.fraction);
+				
+				if (!Number.isFinite(value, value)) value = 0;
+				
+				angular.element(self).text(value);
+				angular.element(self).val(value);				
+			});			
+		}
+	};
+}]);
+
 
