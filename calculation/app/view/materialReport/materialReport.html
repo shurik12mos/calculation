@@ -1,0 +1,67 @@
+<div class="material-report" >
+	<div class = "head col-sm-12">
+		<div class="head_info">
+			<span>Номер КП</span>
+			<input class="info_input" type = "text" ng-model="calculation.number_kp"></input>
+		</div>
+		<div class="head_info">
+			<span>Объект</span>
+			<input class="info_input" type = "text" ng-model='calculation.object'></input>
+		</div>				
+		<div class="head_info">
+			<span>Менеджер</span>
+			<input class="info_input" type = "text" ng-model='calculation.manager'></input>
+		</div>
+		<div class="head_info">
+			<span>Проектировщик</span>
+			<input class="info_input" type = "text" ng-model='calculation.projectDesigner'></input>
+		</div>
+		<div class="head_info">
+			<span>Бригадир</span>
+			<input class="info_input" type = "text" ng-model='jobReport.brigadier'></input>
+		</div>				
+	</div>
+	<div class="prices col-sm-12">		
+		<div class="materials_table table_calc col-sm-12">
+			<h3>Отчет по материалам</h3>
+			<div class = "add_row">
+				<button type="button" class="btn btn-xs btn-primary" ng-click = "materialReport.addMaterial()">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				</button>
+			</div>
+			<table>
+				<tr class="head_table">
+					<th>№</th>
+					<th>Наименование</th>
+					<th>ед.изм.</th>
+					<th>Купленное кол-во</th>
+					<th>Фактически использованное кол-во</th>
+					<th>ст.ед., грн</th>
+					<th>куплено сумма, грн</th>
+					<th>установлено сумма, грн</th>
+				</tr>
+				<tr class="material" ng-repeat="material in materialReport.materials" ng-keyup="calculation.keyup($event)">
+					<td>{{material.index}}</td>
+					<td><input type = "text" ng-model="material.name"/></td>
+					<td><input type = "text" ng-model="material.measure"/></td>						
+					<td><input type = "text" ng-model="material.buy_number" disabled/></td>
+					<td><input type = "text" ng-model="material.number" ng-blur="materialReport.calculate()"/></td>
+					<td><input type = "text" ng-model="material.price" ng-blur="materialReport.calculate()"/></td>
+					<td>{{material.buy_sum}}</td>
+					<td>{{material.sum}}</td>
+					<td class="btn-delete">
+						<button type="button" class="btn btn-xs btn-danger" ng-click = "calculation.deleteMaterial()">
+							<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+						</button>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td colspan = '5'>Итого материалы, грн</td>
+					<td>{{materialReport.materials.buy_sum}}</td>
+					<td>{{materialReport.materials.sum}}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>

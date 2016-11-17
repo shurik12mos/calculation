@@ -17,6 +17,8 @@ app.factory('JobConstructor', function(Common, Ni){
 			};
 		}
 		
+		if (!job.hasOwnProperty('id')) this.id = Common.getID();		
+		
 		if (Object.prototype.toString.call(job) !== "[object Object]") {
 			console.log(job);
 			throw new TypeError("haven`t argument job in constructor or bad type of job. Job have to be an 'Object'");
@@ -125,11 +127,14 @@ app.factory('JobConstructor', function(Common, Ni){
 });
 
 app.factory('MaterialConstructor', function(Common, Ni){
-	function Material() {
-		this.name = "";
-		this.measure = "";
-		this.number = 0;
-		this.price = 0;
+	function Material(material) {		
+		if (!material) material = {};
+				
+		this.id = material.id || Common.getID();
+		this.name = material.name || "";
+		this.measure = material.measure || "";
+		this.number = material.number || 0;
+		this.price = material.price || 0;
 				
 		// Функция расчета суммы стоимости материала
 		this.sumMaterial = function() {
@@ -201,6 +206,14 @@ app.service('Common', function(){
 		arr.forEach(function(e, i, a) {			
 			e.index = i+1;
 		});
+	}
+	
+	this.getID = function(){
+		var id = +new Date,
+		random = Math.round(Math.random()*100);
+		id += "_" + random;
+		
+		return id
 	}
 	
 });

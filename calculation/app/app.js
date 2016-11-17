@@ -8,7 +8,8 @@ angular.module('appCalc', [
   'appCalc.ni',
   'appCalc.Common',
   'appCalc.commonDirectives',
-  'appCalc.jobReport'
+  'appCalc.jobReport',
+  'appCalc.materialReport'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');

@@ -45,8 +45,9 @@ app.service('Calculation', function(JobConstructor, Ni, Common, MaterialConstruc
 	};
 	
 	// Добавление материала
-	this.addMaterial = function(){	
-		var material = new MaterialConstructor();
+	this.addMaterial = function(material){
+		material = new MaterialConstructor(material);
+				
 		// добавляем в список материалов
 		this.materials.push(material);
 		// устанавливаем индекс
@@ -69,35 +70,39 @@ app.service('Calculation', function(JobConstructor, Ni, Common, MaterialConstruc
 			materialSum = 0;
 		
 		// считаем сумму всех работ
-		this.jobs.forEach(function(element){
-			element.sumJob();
-			total += element.sum;
-			totalhh += element.human_hour*element.number;
-			totalam += element.amortization*element.number*element.human_hour;
-			sumSalary += element.salaryMainWorkers*element.number;
-		});
-		
-		sumSalary = Common.toFloat(sumSalary);
-		reserve = Common.toFloat(total*niReserve);
-		sum = Common.toFloat(total+reserve);
-		this.jobs.reserve = reserve;
-		this.jobs.sum = sum;	
-		this.jobs.human_hour = totalhh;	
-		
-		Ni.calc(sumSalary, totalam, total);
+		if (this.hasOwnProperty('jobs')) {
+			this.jobs.forEach(function(element){
+				element.sumJob();
+				total += element.sum;
+				totalhh += element.human_hour*element.number;
+				totalam += element.amortization*element.number*element.human_hour;
+				sumSalary += element.salaryMainWorkers*element.number;
+			});
+			
+			sumSalary = Common.toFloat(sumSalary);
+			reserve = Common.toFloat(total*niReserve);
+			sum = Common.toFloat(total+reserve);
+			this.jobs.reserve = reserve;
+			this.jobs.sum = sum;	
+			this.jobs.human_hour = totalhh;	
+			
+			Ni.calc(sumSalary, totalam, total);
+		}		
 		
 		// считаем материалы
-		this.materials.sum = 0;
-		this.materials.forEach(function(material, i, arr){
-			materialSum += material.sumMaterial();			
-		});
-				
-		this.materials.sum = materialSum;
-		//Запас на материалы
-		this.materials.reserve = Common.toFloat(this.materials.sum*niReserve);
-		// Расходы по доставке и оформлению материалов
-		this.materials.delivery = Common.toFloat((this.materials.sum + this.materials.reserve)*niDelivery);
-		this.materials.sum = Common.toFloat(this.materials.sum + this.materials.reserve + this.materials.delivery);					
+		if (this.hasOwnProperty('materials')) {
+			this.materials.sum = 0;
+			this.materials.forEach(function(material, i, arr){
+				materialSum += material.sumMaterial();			
+			});
+					
+			this.materials.sum = materialSum;
+			//Запас на материалы
+			this.materials.reserve = Common.toFloat(this.materials.sum*niReserve);
+			// Расходы по доставке и оформлению материалов
+			this.materials.delivery = Common.toFloat((this.materials.sum + this.materials.reserve)*niDelivery);
+			this.materials.sum = Common.toFloat(this.materials.sum + this.materials.reserve + this.materials.delivery);			
+		}				
 	}
 		
 });
