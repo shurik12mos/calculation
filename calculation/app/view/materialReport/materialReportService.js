@@ -53,6 +53,7 @@ app.service('MaterialReport', function(Ni, Common, MaterialConstructor, Calculat
 		current.sumMaterial = function() {
 			sumMaterial.call(this);
 			
+			this.sum = Common.toFloat(this.sum);
 			this.buy_sum = Common.toFloat(this.buy_number)*Common.toFloat(this.price);
 		}
 		
@@ -72,7 +73,6 @@ app.service('MaterialReport', function(Ni, Common, MaterialConstructor, Calculat
 		});
 					
 		this.materials.sum = Common.toFloat(materialSum);
-		this.materials.buy_sum = Common.toFloat(materialBuySum);
-		
+		this.materials.buy_sum = Common.toFloat(materialBuySum);		
 	}
 });
