@@ -1,0 +1,38 @@
+<div class="materials_table table_calc col-sm-12">
+			<h3>{{name}}</h3>
+			<div class = "add_row">
+				<button type="button" class="btn btn-xs btn-primary" ng-click = "addMaterial()">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				</button>
+			</div>
+			<table>
+				<tr class="head_table">
+					<th>№</th>
+					<th>Наименование</th>
+					<th>ед.изм.</th>
+					<th>владелец</th>
+					<th>кол-во</th>
+					<th>ст.ед., грн</th>
+					<th>сумма, грн</th>
+				</tr>
+				<tr class="material" ng-repeat="material in source" ng-keyup="common.endEnter($event)">
+					<td>{{material.index}}</td>
+					<td><input type = "text" ng-model="material.name"/></td>
+					<td><input type = "text" ng-model="material.measure"/></td>						
+					<td><input type = "text" ng-model="material.owner"/></td>
+					<td><input type = "text" ng-model="material.number" ng-blur="calculate()"/></td>
+					<td><input type = "text" ng-model="material.price" ng-blur="calculate()"/></td>					
+					<td>{{material.sum}}</td>
+					<td class="btn-delete">
+						<button type="button" class="btn btn-xs btn-danger" ng-click = "deleteMaterial(material)">
+							<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+						</button>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td colspan = '5'>Итого, грн</td>					
+					<td>{{source.sum}}</td>
+				</tr>
+			</table>
+		</div>

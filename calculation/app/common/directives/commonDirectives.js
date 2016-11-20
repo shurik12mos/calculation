@@ -217,6 +217,9 @@ app.directive('materialReportTable', ['Common', 'MaterialConstructor', function(
 					this.number = Common.toFloat(this.number);
 					this.buy_number = Common.toFloat(this.buy_number);
 					this.price = Common.toFloat(this.price);
+					
+					//balance between buy number and actually installing
+					this.balance_number = this.buy_number - this.number;
 								
 					this.sum = Common.toFloat(this.number*this.price);						
 					
@@ -258,8 +261,67 @@ app.directive('materialReportTable', ['Common', 'MaterialConstructor', function(
 							
 				source.sum = Common.toFloat(materialSum);
 				source.buy_sum = Common.toFloat(materialBuySum);	
+				
+				scope.service.calculate();
 			};
 			
+		}
+	};
+}]);
+
+app.directive('expensesReportTable', ['Common', 'MaterialConstructor', function(Common, MaterialConstructor) {	
+	return  {
+		restrict: 'E',
+		scope: {
+			source: "=source",
+			service: "=service",
+			name: "@tableName"
+		},
+		templateUrl: 'common/directives/expensesReportTable/expensesReportTable.html',		
+		link: function(scope, element, attrs, ctrl) {			
+			scope.common = Common;			
+			scope.materialConstructor = MaterialConstructor;
+			if (!scope.source) scope.source = [];
+			
+			//add material to "source"
+			scope.source.addMaterial = scope.addMaterial = function(material){
+				
+				material = new scope.materialConstructor(material);
+				material.owner = "";
+				
+				scope.source.push(material);
+				scope.common.setIndex(scope.source);				
+				
+				scope.calculate();				
+			};
+			
+			//delete material from "source" and calculate
+			scope.deleteMaterial = function(material){
+				if (!material) return;
+				
+				scope.source = scope.source.filter(function(item){
+					if (item.id === material.id) return false;
+					return true;
+				});
+				
+				scope.common.setIndex(scope.source);				
+			};
+			
+			//calculate table
+			scope.source.calculate = scope.calculate = function(){
+				var materialSum = 0,
+				source = scope.source;
+		
+				source.sum = 0;				
+				source.forEach(function(material, i, arr){
+					material.sumMaterial();
+					materialSum += material.sum;						
+				});
+							
+				source.sum = Common.toFloat(materialSum);	
+
+				//тут должна быть функция для расчета основных показателей material report
+			};			
 		}
 	};
 }]);
