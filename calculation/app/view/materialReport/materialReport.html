@@ -21,9 +21,32 @@
 			<input class="info_input" type = "text" ng-model='jobReport.brigadier'></input>
 		</div>				
 	</div>
+	<div class="col-sm-12">
+		<table class="table-bordered">
+			<thead>
+				<tr>
+					<th>Затраты</th>
+					<th>Норма по смете + %, грн</th>
+					<th>Норма по факту, грн</th>
+					<th>Расход по факту, грн</th>
+					<th>Баланс, грн</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Производственные расходы</td>
+					<td>{{ni.prop.overheadExp.value}}</td>
+					<td>{{overhead_exp}}</td>
+					<td>{{materialReport.overheadExpenses.sum}}</td>
+					<td>{{overhead_balance}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
 	<div class="prices col-sm-12">		
 		<div class="materials_table table_calc col-sm-12">
-			<h3>Отчет по материалам</h3>
+			<h3>Материалы купленные по смете</h3>
 			<div class = "add_row">
 				<button type="button" class="btn btn-xs btn-primary" ng-click = "materialReport.addMaterial()">
 					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -67,7 +90,7 @@
 		<material-report-table source="materialReport.materialsFromStore" table-name="Материалы с основного склада" service = "materialReport"></material-report-table>
 		<material-report-table source="materialReport.materialsBuyBrigadier" table-name="Материалы докупленные прорабом"  service = "materialReport"></material-report-table>
 		<material-report-table source="materialReport.materialsStoreBrigadier" table-name="Материалы взяты со склада прорабом"  service = "materialReport"></material-report-table>
-		<expenses-report-table source="materialReport.otherReturn" table-name="Прочие возвратные материалы"  service = "materialReport"></expenses-report-table>
+		<return-materials-table source="materialReport.otherReturn" table-name="Прочие возвратные материалы"  service = "materialReport"></return-materials-table>
 		<expenses-report-table source="materialReport.overheadExpenses" table-name="Общепроизводственные расходы"  service = "materialReport"></expenses-report-table>
 		<expenses-report-table source="materialReport.transportExpenses" table-name="Транспортные расходы"  service = "materialReport"></expenses-report-table>
 		<expenses-report-table source="materialReport.rentExpenses" table-name="Амортизация и аренда оборудования"  service = "materialReport"></expenses-report-table>

@@ -3,6 +3,7 @@
 var app = angular.module('appCalc.calculationService', ['appCalc.Common', 'appCalc.niService']);
 
 app.service('Calculation', function(JobConstructor, Ni, Common, MaterialConstructor){
+	var calculateNi = Ni.calc;
 	
 	function setIndex(arr) {
 		arr.forEach(function(e, i, a) {			
@@ -12,6 +13,15 @@ app.service('Calculation', function(JobConstructor, Ni, Common, MaterialConstruc
 	
 	this.jobs = [];
 	this.materials = [];
+	
+	this.jobs.salaryMainWorkers = 0;
+	this.jobs.amortizations = 0;
+	this.jobs.total = 0;
+	this.jobs.totalhh = 0;
+	
+	this.jobs.reserve = 0;
+	this.jobs.sum = 0;	
+	this.jobs.human_hour = 0;	
 	
 	// добавление работы
 	this.addJob = function(job){
@@ -82,11 +92,18 @@ app.service('Calculation', function(JobConstructor, Ni, Common, MaterialConstruc
 			sumSalary = Common.toFloat(sumSalary);
 			reserve = Common.toFloat(total*niReserve);
 			sum = Common.toFloat(total+reserve);
+			this.jobs.salaryMainWorkers = sumSalary;
+			this.jobs.amortizations = totalam;
+			this.jobs.total = Common.toFloat(total);
+			this.jobs.totalhh = Common.toFloat(totalhh);
+			
 			this.jobs.reserve = reserve;
 			this.jobs.sum = sum;	
 			this.jobs.human_hour = totalhh;	
 			
-			Ni.calc(sumSalary, totalam, total);
+			if (calculateNi) {
+				calculateNi(sumSalary, totalam, total);
+			}
 		}		
 		
 		// считаем материалы

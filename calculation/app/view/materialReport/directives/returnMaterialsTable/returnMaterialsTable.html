@@ -1,0 +1,29 @@
+<div class="materials_table table_calc col-sm-12">
+	<h3>{{name}}</h3>
+			
+	<table>
+		<tr class="head_table">
+			<th>№</th>
+			<th>Наименование</th>
+			<th>ед.изм.</th>
+			<th>владелец</th>
+			<th>кол-во</th>
+			<th>ст.ед., грн</th>
+			<th>сумма, грн</th>
+		</tr>
+		<tr class="material" ng-repeat="material in source" ng-keyup="common.endEnter($event)">
+			<td>{{material.index}}</td>
+			<td>{{material.name}}</td>
+			<td>{{material.measure}}</td>						
+			<td><input type = "text" ng-model="material.owner"/></td>
+			<td>{{material.number}}</td>
+			<td>{{material.price}}</td>					
+			<td>{{material.sum}}</td>					
+		</tr>
+		<tr>
+			<td></td>
+			<td colspan = '5'>Итого, грн</td>					
+			<td>{{source.sum}}</td>
+		</tr>
+	</table>
+</div>

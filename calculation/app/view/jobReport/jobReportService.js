@@ -4,7 +4,6 @@ var app = angular.module('appCalc.jobReportService', ['appCalc.Common', 'appCalc
 
 app.service('JobReport', function(Common, Calculation, Ni){
 	var self = this;
-	
 	angular.merge(this, Calculation);
 	
 	this.workers = [];

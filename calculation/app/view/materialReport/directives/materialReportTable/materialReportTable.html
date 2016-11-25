@@ -18,8 +18,8 @@
 				</tr>
 				<tr class="material" ng-repeat="material in source" ng-keyup="common.endEnter($event)">
 					<td>{{material.index}}</td>
-					<td><input type = "text" ng-model="material.name"/></td>
-					<td><input type = "text" ng-model="material.measure"/></td>						
+					<td><input type = "text" ng-model="material.name" ng-blur="calculate()"/></td>
+					<td><input type = "text" ng-model="material.measure" ng-blur="calculate()"/></td>						
 					<td><input type = "text" ng-model="material.buy_number" ng-blur="calculate()"/></td>
 					<td><input type = "text" ng-model="material.number" ng-blur="calculate()"/></td>
 					<td><input type = "text" ng-model="material.price" ng-blur="calculate()"/></td>

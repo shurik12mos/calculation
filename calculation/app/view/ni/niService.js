@@ -231,8 +231,7 @@ app.service('Ni', function(){
 				total += currentProp.value;
 			}
 			
-			this.value =  Math.round(total*100)/100;
-			console.log("total", total, this.value);
+			this.value =  Math.round(total*100)/100;			
 		}
 	}
 	
@@ -340,10 +339,10 @@ app.service('Ni', function(){
 	
 	// Функция обновления данных this.prop. Вызывается при изменении данных пользователем.
 	this.calc = function(sumSalary, amortization, total) {
-		if (!sumSalary) sumSalary = self.sumSalary;
-		console.log("sumSalary", sumSalary);
-		if (!amortization) amortization = self.amortization;
-		if (!total) total = self.total;
+				
+		if (!sumSalary) sumSalary = self.sumSalary || 0;		
+		if (!amortization) amortization = self.amortization || 0;
+		if (!total) total = self.total || 0;
 		
 		self.sumSalary = sumSalary;
 		self.amortization = amortization;
