@@ -6,180 +6,187 @@ var app = angular.module('appCalc.materialReportService', [
 'appCalc.niService', 
 'appCalc.jobReportService']);
 
-app.service('MaterialReport', function(Ni, Common, MaterialConstructor, Calculation, JobReport){
-	var self = this,
-	// list of materials from different source(buy, store brigadier)
-	materialsList = ['materials', 'materialsFromStore', 'materialsBuyBrigadier', 'materialsStoreBrigadier'],
-	expensesList = [];
-	
-	angular.merge(this, Calculation);
-	
-	this.materials = [];
-	
-	this.refreshMaterials = function(calculation) {
+app.factory('MaterialReport', function(Ni, Common, MaterialConstructor, Calculation, JobReport){
+	function MaterialReport (Ni, Common, MaterialConstructor, Calculation, JobReport) {
 		var self = this,
-		current;
+		// list of materials from different source(buy, store brigadier)
+		materialsList = ['materials', 'materialsFromStore', 'materialsBuyBrigadier', 'materialsStoreBrigadier'],
+		expensesList = [];
 		
-		if (!calculation || !angular.isArray(calculation.materials)) return;		
+		this.materials = [];
 		
-		calculation.materials.forEach(function (materialCalc) {
-			var exist = false;
-			if (!angular.isArray(self.materials)) return;
+		this.refreshMaterials = function(calculation) {
+			var self = this,
+			current;
 			
-			self.materials.forEach(function(material) {
-				if (material.id === materialCalc.id) {
-					exist = true;
-					material.buy_number = materialCalc.number;
-				}
-			});
+			if (!calculation || !angular.isArray(calculation.materials)) return;		
 			
-			if (!exist) {
-				self.addMaterial(materialCalc);						
-			}			
-		});
-	};	
-	
-	this.addMaterial = function(materialCalc) {
-		var current,
-		sumMaterial;
-		
-		Calculation.addMaterial.call(this, materialCalc || {});
-		
-		current = this.materials[this.materials.length-1];
-		
-		//define buy_number for new material or copy calculation material number of materialCalc
-		if (materialCalc) {
-			current.buy_number = materialCalc.number;
-			current.number = 0;
-		}else {
-			current.buy_number = 0;
-		}	
-		
-		// make new method sumMaterial, extended
-		sumMaterial = current.sumMaterial;
-		current.sumMaterial = function() {
-			sumMaterial.call(this);
-			
-			this.sum = Common.toFloat(this.sum);
-			this.buy_sum = Common.toFloat(this.buy_number)*Common.toFloat(this.price);
-		}
-		
-		this.calculate();		
-	}
-	
-	this.calculate = function() {
-		var listLength;
-		
-		listLength = materialsList.length;		
+			calculation.materials.forEach(function (materialCalc) {
+				var exist = false;
+				if (!angular.isArray(self.materials)) return;
 				
-		//calculate materials from project(Calculation)
-		Calculation.calculate.call(this);
-		var materialSum = 0, materialBuySum = 0;
-		
-		this.materials.sum = 0;
-		this.materials.buy_sum = 0;
-		this.materials.forEach(function(material, i, arr){
-			material.sumMaterial();
-			materialSum += material.sum;	
-			materialBuySum += material.buy_sum;
-		});		
-		
-		this.materials.sum = Common.toFloat(materialSum);
-		this.materials.buy_sum = Common.toFloat(materialBuySum);		
-		
-		//sum all materials to make a report		
-		this.installMaterials = 0;
-		this.buyMaterials = 0;
-		for (var i = 0; i < listLength; i++) {
-			this.installMaterials += this[materialsList[i]].sum;
-			this.buyMaterials += this[materialsList[i]].buy_sum;			
-		};
-		
-		this.calculateReturnMaterials();
-	};
-	
-	//
-	this.calculateReturnMaterials = function(){
-		var material, exist, indexExistMaterial, item, existItem,
-		returnArr = this.otherReturn;
-		
-		function checkOne (source){
-			// add or refresh materials from materialsList(from this.calculate)
-			for (var i = 0; i < source.length; i++) {
-				exist = false,
-				item = source[i];
-				
-				exist = returnArr.some(function(returnItem, i){
-					indexExistMaterial = i;
-					return returnItem.id === item.id;
+				self.materials.forEach(function(material) {
+					if (material.id === materialCalc.id) {
+						exist = true;
+						material.buy_number = materialCalc.number;
+					}
 				});
 				
-				if (exist) {
-					if ((item.buy_number - item.number) < 1) {
-						returnArr.splice(indexExistMaterial, 1);
-						continue;
-					}else {
-						existItem = returnArr[indexExistMaterial];
-						existItem.number = item.buy_number - item.number;
-						existItem.name = item.name;
-						existItem.measure = item.measure;
-						existItem.price = item.price;
-						existItem.sumMaterial();
-						continue;
-					}						
-				};
+				if (!exist) {
+					self.addMaterial(materialCalc);						
+				}			
+			});
+		};	
+		
+		this.addMaterial = function(materialCalc) {
+			var current,
+			sumMaterial;
+			
+			Calculation.addMaterial.call(this, materialCalc || {});
+			
+			current = this.materials[this.materials.length-1];
+			
+			//define buy_number for new material or copy calculation material number of materialCalc
+			if (materialCalc) {
+				current.buy_number = materialCalc.number;
+				current.number = 0;
+			}else {
+				current.buy_number = 0;
+			}	
+			
+			// make new method sumMaterial, extended
+			sumMaterial = current.sumMaterial;
+			current.sumMaterial = function() {
+				sumMaterial.call(this);
 				
-				if ((item.buy_number - item.number) > 0) {
-					material = {};
-					material.number = item.buy_number - item.number;
-					material.name = item.name;
-					material.measure = item.measure;
-					material.price = item.price;
-					material.id = item.id;
+				this.sum = Common.toFloat(this.sum);
+				this.buy_sum = Common.toFloat(this.buy_number)*Common.toFloat(this.price);
+			}
+			
+			this.calculate();		
+		}
+		
+		this.calculate = function() {
+			var listLength;
+			
+			listLength = materialsList.length;		
+					
+			//calculate materials from project(Calculation)
+			Calculation.calculate.call(this);
+			var materialSum = 0, materialBuySum = 0;
+			
+			this.materials.sum = 0;
+			this.materials.buy_sum = 0;
+			this.materials.forEach(function(material, i, arr){
+				material.sumMaterial();
+				materialSum += material.sum;	
+				materialBuySum += material.buy_sum;
+			});		
+			
+			this.materials.sum = Common.toFloat(materialSum);
+			this.materials.buy_sum = Common.toFloat(materialBuySum);		
+			
+			//sum all materials to make a report		
+			this.installMaterials = 0;
+			this.buyMaterials = 0;
+			for (var i = 0; i < listLength; i++) {
+				this.installMaterials += this[materialsList[i]].sum;
+				this.buyMaterials += this[materialsList[i]].buy_sum;			
+			};
+			
+			this.calculateReturnMaterials();
+		};
+		
+		//
+		this.calculateReturnMaterials = function(){
+			var material, exist, indexExistMaterial, item, existItem,
+			returnArr = this.otherReturn;
+			
+			function checkOne (source){
+				// add or refresh materials from materialsList(from this.calculate)
+				for (var i = 0; i < source.length; i++) {
+					exist = false,
+					item = source[i];
+					
+					exist = returnArr.some(function(returnItem, i){
+						indexExistMaterial = i;
+						return returnItem.id === item.id;
+					});
+					
+					if (exist) {
+						if ((item.buy_number - item.number) < 1) {
+							returnArr.splice(indexExistMaterial, 1);
+							continue;
+						}else {
+							existItem = returnArr[indexExistMaterial];
+							existItem.number = item.buy_number - item.number;
+							existItem.name = item.name;
+							existItem.measure = item.measure;
+							existItem.price = item.price;
+							existItem.sumMaterial();
+							continue;
+						}						
+					};
+					
+					if ((item.buy_number - item.number) > 0) {
+						material = {};
+						material.number = item.buy_number - item.number;
+						material.name = item.name;
+						material.measure = item.measure;
+						material.price = item.price;
+						material.id = item.id;
+							
+						material = new MaterialConstructor(material);
 						
-					material = new MaterialConstructor(material);
+						
+						returnArr.push(material);
+					}		
+				};
+			};		
+			
+			//if (!angular.isArray(returnArr)) returnArr = [];
 					
-					
-					returnArr.push(material);
-				}		
+			for (var j = 0; j < materialsList.length; j++) {
+				checkOne(this[materialsList[j]]);
 			};
-		};		
+			
+			returnArr.calculate();
+			Common.setIndex(returnArr);
+		};	
 		
-		//if (!angular.isArray(returnArr)) returnArr = [];
-				
-		for (var j = 0; j < materialsList.length; j++) {
-			checkOne(this[materialsList[j]]);
+		this.checkDeletedInReturn = function (material) {
+			self.otherReturn.forEach(function(item, i, arr){
+				if (item.id === material.id) {
+					arr.splice(i,1);
+				};
+			});
 		};
 		
-		returnArr.calculate();
-		Common.setIndex(returnArr);
-	};	
-	
-	this.checkDeletedInReturn = function (material) {
-		self.otherReturn.forEach(function(item, i, arr){
-			if (item.id === material.id) {
-				arr.splice(i,1);
+		this.mainFactors = function() {
+			var listLength;
+			
+			listLength = expensesList.length;	
+			
+			for (var i = 0; i < listLength; i++) {
+				this[expensesList[i]].calculate();		
 			};
-		});
+			
+			this.otherReturn.calculate();
+			
+			//
+			//
+			//
+			//
+			//
+		};
 	};
 	
-	this.mainFactors = function() {
-		var listLength;
-		
-		listLength = expensesList.length;	
-		
-		for (var i = 0; i < listLength; i++) {
-			this[expensesList[i]].calculate();		
-		};
-		
-		this.otherReturn.calculate();
-		
-		//
-		//
-		//
-		//
-		//
-	};
+	MaterialReport.prototype = Object.create(Object.getPrototypeOf(Calculation));
+	MaterialReport.prototype.constructor = MaterialReport;
+	
+	return new MaterialReport(Ni, Common, MaterialConstructor, Calculation, JobReport);
+	
+	
 });
 
 

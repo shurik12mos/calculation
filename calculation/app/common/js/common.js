@@ -214,7 +214,7 @@ app.service('Common', function(){
 		id += "_" + random;
 		
 		return id
-	}
-	
+	};	
+		
 });
 
