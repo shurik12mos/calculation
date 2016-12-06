@@ -10,10 +10,20 @@ app.factory('MaterialReport', function(Ni, Common, MaterialConstructor, Calculat
 	function MaterialReport (Ni, Common, MaterialConstructor, Calculation, JobReport) {
 		var self = this,
 		// list of materials from different source(buy, store brigadier)
-		materialsList = ['materials', 'materialsFromStore', 'materialsBuyBrigadier', 'materialsStoreBrigadier'],
-		expensesList = [];
+		materialsList = ['materials', 'materialsFromStore', 'materialsBuyBrigadier', 'materialsStoreBrigadier'];
 		
+		//define different materials list
 		this.materials = [];
+		this.materialsFromStore = [];
+		this.materialsBuyBrigadier = [];
+		this.materialsStoreBrigadier = [];
+		this.otherReturn = [];
+		
+		// define expencies
+		this.overheadExpenses = [];
+		this.transportExpenses = [];
+		this.rentExpenses = [];		
+		this.promotion = {};
 		
 		this.refreshMaterials = function(calculation) {
 			var self = this,
@@ -36,6 +46,8 @@ app.factory('MaterialReport', function(Ni, Common, MaterialConstructor, Calculat
 					self.addMaterial(materialCalc);						
 				}			
 			});
+			
+			self.calculate();
 		};	
 		
 		this.addMaterial = function(materialCalc) {
@@ -93,8 +105,18 @@ app.factory('MaterialReport', function(Ni, Common, MaterialConstructor, Calculat
 				this.installMaterials += this[materialsList[i]].sum;
 				this.buyMaterials += this[materialsList[i]].buy_sum;			
 			};
+			this.balanceMaterials = this.buyMaterials - this.installMaterials;
 			
+			this.installMaterials = Common.toFloat(this.installMaterials);
+			this.buyMaterials = Common.toFloat(this.buyMaterials);
+			this.balanceMaterials = Common.toFloat(this.balanceMaterials);
+			
+			
+			// calculate return materials
 			this.calculateReturnMaterials();
+			
+			// calculate main factors (balance of overhead expencies)
+			this.mainFactors();
 		};
 		
 		//
@@ -144,13 +166,13 @@ app.factory('MaterialReport', function(Ni, Common, MaterialConstructor, Calculat
 				};
 			};		
 			
-			//if (!angular.isArray(returnArr)) returnArr = [];
+			if (!angular.isArray(returnArr)) returnArr = [];
 					
 			for (var j = 0; j < materialsList.length; j++) {
 				checkOne(this[materialsList[j]]);
 			};
 			
-			returnArr.calculate();
+			if (returnArr.calculate)returnArr.calculate();
 			Common.setIndex(returnArr);
 		};	
 		
@@ -163,21 +185,75 @@ app.factory('MaterialReport', function(Ni, Common, MaterialConstructor, Calculat
 		};
 		
 		this.mainFactors = function() {
-			var listLength;
+			var niExpenses = 0;
+						
+			// overhead Expenses
+			if (JobReport.workers) {
+				this.overheadExpenses.project = JobReport.workers.reduce(function(sum, worker) {
+					try {
+						return sum + Common.toFloat(worker.salary.sum);
+					}catch(e) {
+						return sum;
+					};
+					
+				}, 0);
+				this.overheadExpenses.project *= Common.toFloat(Ni.prop.overheadExp.percent/100);
+			}else {
+				this.overheadExpenses.project = 0;
+			}
+			this.overheadExpenses.balance = this.overheadExpenses.project - this.overheadExpenses.sum;
 			
-			listLength = expensesList.length;	
+			//transport expenses
+			this.transportExpenses.balance = - this.transportExpenses.sum;
 			
-			for (var i = 0; i < listLength; i++) {
-				this[expensesList[i]].calculate();		
-			};
+			//rentExpenses
+			if (JobReport.workers) {
+				this.rentExpenses.project = JobReport.workers.reduce(function(sum, worker) {
+					try {
+						return sum + Common.toFloat(worker.amortization.sum);
+					}catch(e) {
+						return sum;
+					};
+					
+				}, 0);
+				
+			}else {
+				this.rentExpenses.project = 0;
+			}
 			
-			this.otherReturn.calculate();
+			this.rentExpenses.balance = this.rentExpenses.project - this.rentExpenses.sum;
 			
-			//
-			//
-			//
-			//
-			//
+			// Promotion
+			if (JobReport.workers) {
+				this.promotion.project = JobReport.workers.reduce(function(sum, worker) {
+					try {
+						return sum + Common.toFloat(worker.salary.sum);
+					}catch(e) {
+						return sum;
+					};
+					
+				}, 0);
+				
+			}else {
+				this.promotion.project = 0;
+			}
+			
+			niExpenses = 1 + Ni.prop.salaryBrigadier.percent/100;
+			console.log(' Ni.prop.salaryManager',  Ni.prop.salaryManager);
+			niExpenses += Ni.prop.salaryManager.percent/100;
+			niExpenses += Ni.prop.salaryProject.percent/100;
+			niExpenses += Ni.prop.profit.percent/100;
+			niExpenses += Ni.prop.overheadExp.percent/100;
+			niExpenses += Ni.prop.adminExp.percent/100;
+			
+			this.promotion.project *= niExpenses;
+			this.promotion.project *= Ni.prop.promotion.percent/100;
+			
+			this.promotion.balance = this.promotion.project;
+			
+			// Balance of overhead expencies
+			this.overheadBalance = this.overheadExpenses.balance + this.transportExpenses.balance + this.rentExpenses.balance + this.promotion.balance;
+						
 		};
 	};
 	
@@ -202,7 +278,6 @@ app.directive('materialReportTable', ['Common', 'MaterialConstructor', function(
 		link: function(scope, element, attrs, ctrl) {			
 			scope.common = Common;			
 			scope.materialConstructor = MaterialConstructor;
-			if (!scope.source) scope.source = [];
 			
 			//add material to "source"
 			scope.addMaterial = function(material){
@@ -269,8 +344,10 @@ app.directive('materialReportTable', ['Common', 'MaterialConstructor', function(
 				source.buy_sum = Common.toFloat(materialBuySum);	
 				
 				scope.service.calculate();
-			};
+			};			
 			
+			if (!scope.source) scope.source = [];
+			scope.calculate();		
 		}
 	};
 }]);
@@ -287,10 +364,6 @@ app.directive('expensesReportTable', ['Common', 'MaterialConstructor', function(
 		link: function(scope, element, attrs, ctrl) {			
 			scope.common = Common;			
 			scope.materialConstructor = MaterialConstructor;
-			if (!scope.source) {
-				scope.source = [];
-				scope.source.sum = 0;
-			}
 			
 			//add material to "source"
 			scope.source.addMaterial = scope.addMaterial = function(material){
@@ -328,9 +401,19 @@ app.directive('expensesReportTable', ['Common', 'MaterialConstructor', function(
 				});
 							
 				source.sum = Common.toFloat(materialSum);	
-
+								
 				//тут должна быть функция для расчета основных показателей material report
+				scope.service.calculate();
 			};			
+			
+			if (!scope.source) {
+				scope.source = [];
+				scope.source.sum = 0;
+			}
+			
+			//scope.calculate();
+			
+			
 		}
 	};
 }]);

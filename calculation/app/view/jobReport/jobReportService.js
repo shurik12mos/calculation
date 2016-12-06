@@ -97,6 +97,7 @@ app.factory('JobReport', function(Common, Calculation, Ni){
 				worker.salary.sum = 0;
 				worker.hour.sum = 0;
 				worker.number.sum = 0;
+				worker.amortization.sum = 0;
 				
 				worker.number.forEach(function(number, i){
 					if (!number) number = 0;
@@ -104,6 +105,7 @@ app.factory('JobReport', function(Common, Calculation, Ni){
 					worker.salary[i] = Common.toFloat(job.rank*job.human_hour*number*Ni.humanHourPrice.value);
 					worker.amortization[i] = Common.toFloat(job.amortization*job.human_hour*number, 2);
 					worker.hour[i] = Common.toFloat(job.human_hour*number);
+					worker.amortization.sum += worker.amortization[i]
 					worker.salary.sum += worker.salary[i];
 					worker.hour.sum += worker.hour[i];
 				});

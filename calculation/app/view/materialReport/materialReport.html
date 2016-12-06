@@ -36,11 +36,57 @@
 				<tr>
 					<td>Производственные расходы</td>
 					<td>{{ni.prop.overheadExp.value}}</td>
-					<td>{{overhead_exp}}</td>
-					<td>{{materialReport.overheadExpenses.sum}}</td>
-					<td>{{overhead_balance}}</td>
+					<td>{{common.toFloat(materialReport.overheadExpenses.project)}}</td>
+					<td>{{common.toFloat(materialReport.overheadExpenses.sum)}}</td>
+					<td>{{common.toFloat(materialReport.overheadExpenses.balance)}}</td>
+				</tr>
+				<tr>
+					<td>Транспортные расходы</td>
+					<td></td>
+					<td></td>
+					<td>{{common.toFloat(materialReport.transportExpenses.sum)}}</td>
+					<td>{{common.toFloat(materialReport.transportExpenses.balance)}}</td>
+				</tr>
+				<tr>
+					<td>Амортизация</td>
+					<td>{{ni.prop.amortizations.value}}</td>
+					<td>{{common.toFloat(materialReport.rentExpenses.project)}}</td>
+					<td>{{common.toFloat(materialReport.rentExpenses.sum)}}</td>
+					<td>{{common.toFloat(materialReport.rentExpenses.balance)}}</td>
+				</tr>
+				<tr>
+					<td>Запас (поощрения и риски)</td>
+					<td>{{ni.prop.promotion.value}}</td>
+					<td>{{common.toFloat(materialReport.promotion.project)}}</td>
+					<td></td>
+					<td>{{common.toFloat(materialReport.promotion.balance)}}</td>
 				</tr>
 			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan = "4">Баланс общепроизводственных расходов</td>
+					<td>{{common.toFloat(materialReport.overheadBalance)}}</td>
+				</tr>
+			</tfoot>
+		</table>
+		<h3>
+			Баланс материалов
+		</h3>
+		<table>
+			<tr class="head_table">
+				<td></td>
+				<td>Куплено, грн</td>
+				<td>Установлено, грн</td>
+				<td>Возврат на склад, грн</td>
+				<td>Баланс</td>
+			</tr>
+			<tr>
+				<td>Материалы</td>
+				<td>{{materialReport.buyMaterials}}</td>
+				<td>{{materialReport.installMaterials}}</td>
+				<td>{{materialReport.otherReturn.sum}}</td>
+				<td>{{materialReport.balanceMaterials}}</td>
+			</tr>			
 		</table>
 	</div>
 	
@@ -67,7 +113,7 @@
 					<td>{{material.index}}</td>
 					<td><input type = "text" ng-model="material.name"/></td>
 					<td><input type = "text" ng-model="material.measure"/></td>						
-					<td><input type = "text" ng-model="material.buy_number" disabled/></td>
+					<td><input type = "text" ng-model="material.buy_number" ng-disabled = "material.changeble"/></td>
 					<td><input type = "text" ng-model="material.number" ng-blur="materialReport.calculate()"/></td>
 					<td><input type = "text" ng-model="material.price" ng-blur="materialReport.calculate()"/></td>
 					<td>{{material.buy_sum}}</td>
@@ -84,7 +130,7 @@
 					<td>{{materialReport.materials.buy_sum}}</td>
 					<td>{{materialReport.materials.sum}}</td>
 				</tr>
-			</table>
+			</table>			
 		</div>
 		
 		<material-report-table source="materialReport.materialsFromStore" table-name="Материалы с основного склада" service = "materialReport"></material-report-table>

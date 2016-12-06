@@ -23,29 +23,6 @@ angular.module('appCalc.materialReport', [
 		$scope.ni = Ni;
 		$scope.materialReport.refreshMaterials(Calculation);
 		$scope.jobReport = JobReport;
-		
-		//Производственные расходы по факту
-		if ($scope.jobReport.workers) {
-			$scope.overhead_exp = $scope.jobReport.workers.reduce(function(sum, worker) {
-				try {
-					return sum + Common.toFloat(worker.salary.sum);
-				}catch(e) {
-					return sum;
-				};
-				
-			}, 0);
-			$scope.overhead_exp *= Common.toFloat(Ni.prop.overheadExp.percent/100);
-		}else {
-			$scope.overhead_exp = 0;
-		}
-		
-		//Баланс общепроизводственных расходов
-		$scope.materialReport.overheadExpenses = $scope.materialReport.overheadExpenses || [];
-		$scope.materialReport.overheadExpenses.sum = $scope.materialReport.overheadExpenses?$scope.materialReport.overheadExpenses.sum:0;
-		$scope.overhead_balance = Common.toFloat($scope.overhead_exp - $scope.materialReport.overheadExpenses.sum || 0);
-		
-		
-		//Баланс общепроизводственных расходов
-		
+		$scope.common = Common;		
 	}
 ]);
