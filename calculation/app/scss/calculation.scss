@@ -7,14 +7,15 @@
 
 	.head {
 		user-select: none;
-		.head_info{
+
+		.head_info {
 			margin-top: 10px;
-			
+
 			span {
 				display: inline-block;
 				width: 200px;
 			}
-			
+
 			.info_input {
 				border: none;
 				border-bottom: 1px solid #000;
@@ -24,7 +25,7 @@
 				min-width: 200px;
 				max-width: 70%;
 			}
-			
+
 			textarea.info_input {
 				border: 1px solid #000;
 				border-radius: 5px;
@@ -32,33 +33,33 @@
 			}
 		}
 	}
-	
+
 	.prices {
 		user-select: none;
 		margin: 20px auto;
 		font-size: 16px;
 		font-weight: bold;
-		
+
 		.sum {
 			display: block;
 			margin-top: 10px;
 			width: 500px;
-			
+
 			span {
 				display: inline-block;
-				margin: 0px 5px;				
+				margin: 0 5px;
 			}
-			
+
 			span:first-child {
 				min-width: 150px;
 			}
-			
+
 			.price {
 				border-bottom: 2px solid #000;
 				min-width: 100px;
 			}
 		}
-	}	
+	}
 }
 
 .table_calc {
@@ -66,52 +67,55 @@
 	margin-left: 10%;
 	margin-right: 10%;
 	margin-bottom: 15px;
-		
+
 	h3 {
 		text-align: center;
 		font-size: 18px;
 		font-weight: bold;
 	}
-		
+
 	.human-hour {
 		float: right;
 		clear: right;
 		overflow: hidden;
 		min-width: 50px;
-		
+
 		span {
-			display: inline-block;				
+			display: inline-block;
 			text-align: right;
-			font-size: 14px;				
-			margin-bottom: 0px;
+			font-size: 14px;
+			margin-bottom: 0;
 			min-width: 20px;
 			min-height: 14px;
 		}
-	}	
+	}
 }
 
 .table-jobs {
 	text-align: left;
 	min-width: 100%;
-	margin: 0px auto;
-	
-			
-	td, th {
-		position: relative;				
+	margin: 0 auto;
+
+	td,
+	th {
+		position: relative;
 		border: 1px solid #000;
 		padding: 2px 5px;
 	}
-		
-	td:nth-child(1), th:nth-child(1) {
+
+	td:nth-child(1),
+	th:nth-child(1) {
 		text-align: center;
 		min-width: 30px;
 	}
-			
-	td:nth-child(2), th:nth-child(2) {
+
+	td:nth-child(2),
+	th:nth-child(2) {
 		width: 50%;
 	}
-			
-	input, textarea {
+
+	input,
+	textarea {
 		border: none;
 		outline: none;
 		background-color: #fff;
@@ -119,7 +123,7 @@
 		overflow-y: visible;
 		height: 100%;
 	}
-}	
+}
 
 .add_row {
 	font-size: 20px;
@@ -127,17 +131,17 @@
 	float: right;
 	clear: both;
 	overflow: hidden;
-			
+
 	span {
 		display: block;
 		padding: 5px;
-		top: 0px;
+		top: 0;
 	}
-}	
-		
+}
+
 .btn-delete {
-	position: absolute;			
+	position: absolute;
 	border: none;
 	width: 22px;
-	vertical-align: middle;			
+	vertical-align: middle;
 }

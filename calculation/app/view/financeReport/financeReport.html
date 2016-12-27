@@ -1,0 +1,298 @@
+<div class="financeReport col-sm-12">
+  <div class="fr-worker-numbers">
+    <table class="fr-worker-numbers-table table table-bordered">
+      <tr>
+        <th></th>
+        <th>Выполнено, грн</th>
+        <th>Премия от 0 до 40%</th>
+        <th>Премия, грн</th>
+        <th>Амортизация своего оборудования, грн</th>
+        <th>Начислено, грн</th>
+        <th>Начислено дата</th>
+        <th>Коэффициент участия</th>
+      </tr>
+      <tr>
+        <td>З/п монтажников</td>
+        <td>{{members.workers.salary}}</td>
+        <td>{{ni.prop.possibleBonus.value}}</td>
+        <td>{{members.workers.promotion}}</td>
+        <td>{{members.workers.amortization}}</td>
+        <td>{{members.workers.total}}</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr ng-repeat = "worker in members.workers">
+        <td>{{worker.name}}</td>
+        <td>{{worker.salary.sum}}</td>
+        <td>
+          <input type="text" ng-model="worker.promotion.percent"
+           ng-change="workersPromotion(worker)">
+        </td>
+        <td>{{worker.promotion.value}}</td>
+        <td>{{worker.amortization.sum}}</td>
+        <td>{{worker.total}}</td>
+        <td>
+          <input type="date" ng-model = "worker.payDate">
+        </td>
+        <td>{{worker.partPercent}}</td>
+      </tr>
+      <tr>
+        <td>З/п бригадира</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>{{members.brigadier.name}}</td>
+        <td>{{members.brigadier.salary}}</td>
+        <td>
+          <input type="text" ng-model="members.brigadier.promotion.percent"
+             ng-change="workersPromotion(members.brigadier)">
+        </td>
+        <td>{{members.brigadier.promotion.value}}</td>
+        <td></td>
+        <td>{{members.brigadier.salaryTotal}}</td>
+        <td>
+          <input type="date" ng-model="members.brigadier.payDate">
+        </td>
+        <td>{{members.brigadier.partPercent}}</td>
+      </tr>
+      <tr>
+        <td>З/п проектировщика</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>{{members.projectDesigner.name}}</td>
+        <td>{{members.projectDesigner.salary}}</td>
+        <td>
+          <input type="text" ng-model = "members.projectDesigner.promotion.percent"
+           ng-change="workersPromotion(members.projectDesigner)">
+        </td>
+        <td>{{members.projectDesigner.promotion.value}}</td>
+        <td></td>
+        <td>{{members.projectDesigner.salaryTotal}}</td>
+        <td>
+          <input type="date" ng-model = "members.projectDesigner.payDate">
+        </td>
+        <td>{{members.projectDesigner.partPercent}}</td>
+      </tr>
+      <tfoot>
+        <tr>
+          <td>Всего</td>
+          <td>{{members.salary}}</td>
+          <td></td>
+          <td>{{members.promotion}}</td>
+          <td>{{members.amortization}}</td>
+          <td>{{members.total}}</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="bonuses">
+    <h4 class="heading">Бонусы</h4>
+
+    <table class="table table-bordered bonuses-table">
+      <tr>
+        <th>Бонусы</th>
+        <th>Всего, грн</th>
+        <th>% с услуг</th>
+        <th>% с материалов</th>
+      </tr>
+      <tr class="member-header">
+        <td>Продавец</td>
+        <td></td>
+        <td><input type="text" ng-model = "members.seller.bonuses.fromService.percent"
+         ng-change="membersCalculate()"> %</td>
+        <td><input type="text" ng-model = "members.seller.bonuses.fromMaterials.percent"
+         ng-change="membersCalculate()"> %</td>
+      </tr>
+      <tr class="member-numbers">
+        <td>{{members.seller.name}}</td>
+        <td>{{members.seller.bonuses.sum}}</td>
+        <td>{{members.seller.bonuses.fromService.value}}</td>
+        <td>{{members.seller.bonuses.fromMaterials.value}}</td>
+      </tr>
+      <tr class="member-header">
+        <td>Менеджер</td>
+        <td></td>
+        <td><input type="text" ng-model = "members.manager.bonuses.fromService.percent"
+         ng-change="membersCalculate()"> %</td>
+        <td><input type="text" ng-model = "members.manager.bonuses.fromMaterials.percent"
+         ng-change="membersCalculate()"> %</td>
+      </tr>
+      <tr class="member-numbers">
+        <td>{{members.manager.name}}</td>
+        <td>{{members.manager.bonuses.sum}}</td>
+        <td>{{members.manager.bonuses.fromService.value}}</td>
+        <td>{{members.manager.bonuses.fromMaterials.value}}</td>
+      </tr>
+      <tr class="member-header">
+        <td>Бригадир</td>
+        <td></td>
+        <td><input type="text" ng-model = "members.brigadier.bonuses.fromService.percent"
+         ng-change="membersCalculate()"> %</td>
+        <td><input type="text" ng-model = "members.brigadier.bonuses.fromMaterials.percent"
+         ng-change="membersCalculate()"> %</td>
+      </tr>
+      <tr class="member-numbers">
+        <td>{{members.brigadier.name}}</td>
+        <td>{{members.brigadier.bonuses.sum}}</td>
+        <td>{{members.brigadier.bonuses.fromService.value}}</td>
+        <td>{{members.brigadier.bonuses.fromMaterials.value}}</td>
+      </tr>
+      <tr class="member-header">
+        <td>Проектировщик</td>
+        <td></td>
+        <td><input type="text" ng-model = "members.projectDesigner.bonuses.fromService.percent"
+         ng-change="membersCalculate()"> %</td>
+        <td><input type="text" ng-model = "members.projectDesigner.bonuses.fromMaterials.percent"
+         ng-change="membersCalculate()"> %</td>
+      </tr>
+      <tr class="member-numbers">
+        <td>{{members.projectDesigner.name}}</td>
+        <td>{{members.projectDesigner.bonuses.sum}}</td>
+        <td>{{members.projectDesigner.bonuses.fromService.value}}</td>
+        <td>{{members.projectDesigner.bonuses.fromMaterials.value}}</td>
+      </tr>
+      <tfoot>
+        <tr>
+          <td>Всего</td>
+          <td>{{members.fromService + members.fromMaterials}}</td>
+          <td>{{members.fromService}}</td>
+          <td>{{members.fromMaterials}}</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="final-stats">
+    <table class="table table-bordered">
+      <tr>
+        <th>Имя</th>
+        <th>Всего, грн</th>
+        <th>Зарплата, грн</th>
+        <th>Премия, грн</th>
+        <th>Бонус с услуг, грн</th>
+        <th>Бонус с материалов, грн</th>
+      </tr>
+      <tr ng-repeat="worker in members.workers">
+        <td>{{worker.name}}</td>
+        <td>{{worker.total}}</td>
+        <td>{{worker.salary.sum}}</td>
+        <td>{{worker.promotion.value}}</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr ng-repeat="member in members.members">
+        <td>{{member.name}}</td>
+        <td>{{member.total}}</td>
+        <td>{{member.salary}}</td>
+        <td>{{member.promotion.value}}</td>
+        <td>{{member.bonuses.fromService.value}}</td>
+        <td>{{member.bonuses.fromMaterials.value}}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="finance-stat">
+    <table class="table table-bordered">
+      <tr>
+        <th>Показатель</th>
+        <th>Смета</th>
+        <th>Факт</th>
+      </tr>
+      <tr>
+        <td>Доход от реализации услуг</td>
+        <td>{{calculation.jobs.total + calculation.materials.total}}</td>
+        <td>{{jobReport.jobs.total + materialReport.installMaterials + materialReport.delivery}}</td>
+      </tr>
+      <tr>
+        <td>Услуги</td>
+        <td>{{calculation.jobs.total}}</td>
+        <td>{{jobReport.jobs.total}}</td>
+      </tr>
+      <tr>
+        <td>Материалы</td>
+        <td>{{calculation.materials.sum + calculation.materials.reserve}}</td>
+        <td>{{materialReport.installMaterials}}</td>
+      </tr>
+      <tr>
+        <td>Другой доход</td>
+        <td>{{calculation.materials.delivery}}</td>
+        <td>{{materialReport.delivery}}</td>
+      </tr>
+      <tr>
+        <td>Себестоимость продаж</td>
+        <td>{{costCalc}}</td>
+        <td>{{costReal}}</td>
+      </tr>
+      <tr>
+        <td>Оборудование и материалы</td>
+        <td>{{calculation.materials.sum + calculation.materials.reserve}}</td>
+        <td>{{materialReport.installMaterials}}</td>
+      </tr>
+      <tr>
+        <td>Субподряд</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>З/п основных рабочих</td>
+        <td>{{calculation.salaryMainWorkers}}</td>
+        <td>{{members.workers.salary}}</td>
+      </tr>
+      <tr>
+        <td>З/п бригадир</td>
+        <td>{{ni.prop.salaryBrigadier.value}}</td>
+        <td>{{members.brigadier.salary}}</td>
+      </tr>
+      <tr>
+        <td>З/п проектировщик</td>
+        <td>{{ni.prop.salaryProject.value}}</td>
+        <td>{{members.projectDesigner.salary}}</td>
+      </tr>
+      <tr>
+        <td>З/п менеджер</td>
+        <td>{{ni.prop.salaryManager.value}}</td>
+        <td>{{members.manager.salary}}</td>
+      </tr>
+      <tr>
+        <td>Общепроизводственные затраты</td>
+        <td>{{ni.prop.overheadExp.value}}</td>
+        <td>{{materialReport.overheadExp.sum + materialReport.transportExpenses.sum}}</td>
+      </tr>
+      <tr>
+        <td>Премия</td>
+        <td>{{ni.prop.promotion.value}}</td>
+        <td>{{members.promotion}}</td>
+      </tr>
+      <tr>
+        <td>Бонусы</td>
+        <td>
+          {{
+            (calculation.materials.sum + calculation.materials.reserve)*members.fromMaterialsPercent
+            + calculation.jobs.total * members.fromServicePercent
+          }}
+        </td>
+        <td>{{members.fromMaterials + members.fromService}}</td>
+      </tr>
+      <tr>
+        <td>Валовая прибыль</td>
+        <td>{{calculation.jobs.total + calculation.materials.total - costCalc}}</td>
+        <td>{{jobReport.jobs.total + materialReport.installMaterials + materialReport.delivery - costReal}}</td>
+      </tr>
+    </table>
+  </div>
+</div>

@@ -35,26 +35,26 @@
 				<div class="head_info">
 					<span>Другая информация</span>
 					<textarea class="info_input" type = "text" cols="10" ng-model='calculation.info'></textarea>
-				</div>				
+				</div>
 			</div>
 			<div class="prices col-sm-12">
 				<div class="sum jobs_sum right">
 					<span>Монтажные работы: </span>
-					<span class="price">{{calculation.jobs.sum}}</span>
+					<span class="price">{{calculation.jobs.total}}</span>
 					<span>грн</span>
-				</div>	
+				</div>
 				<div class="sum mat_sum right">
 					<span>Материалы: </span>
-					<span class="price">{{calculation.materials.sum}}</span>
+					<span class="price">{{calculation.materials.total}}</span>
 					<span>грн</span>
 				</div>
 				<div class="sum all_sum right">
 					<span>Всего: </span>
-					<span class="price">{{calculation.jobs.sum + calculation.materials.sum}}</span>
+					<span class="price">{{calculation.jobs.total + calculation.materials.total}}</span>
 					<span>грн</span>
 				</div>
 			</div>
-			
+
 			<table-job source="calculation" price="pricelist"></table-job>
 			<div class="materials_table table_calc col-sm-12">
 				<h3>Материалы</h3>
@@ -75,7 +75,7 @@
 					<tr class="material" ng-repeat="material in calculation.materials" ng-keyup="calculation.keyup($event)">
 						<td>{{material.index}}</td>
 						<td><input type = "text" ng-model="material.name"/></td>
-						<td><input type = "text" ng-model="material.measure"/></td>						
+						<td><input type = "text" ng-model="material.measure"/></td>
 						<td><input type = "text" ng-model="material.number" ng-blur="calculation.calculate()"/></td>
 						<td><input type = "text" ng-model="material.price" ng-blur="calculation.calculate()"/></td>
 						<td>{{material.sum}}</td>
@@ -98,7 +98,7 @@
 					<tr>
 						<td></td>
 						<td colspan = '4'>Итого материалы, грн</td>
-						<td>{{calculation.materials.sum}}</td>
+						<td>{{calculation.materials.total}}</td>
 					</tr>
 				</table>
 			</div>

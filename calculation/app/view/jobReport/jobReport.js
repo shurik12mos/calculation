@@ -1,26 +1,37 @@
-"use strict";
+(function () {
+    "use strict";
+    var app = angular.module('appCalc.jobReport', ['appCalc.calculation',
+        'appCalc.pricelist',
+        'appCalc.ni',
+        'appCalc.Common',
+        'appCalc.commonDirectives',
+        'appCalc.jobReportService',
+        'appCalc.members'
+    ]);
 
-var app = angular.module('appCalc.jobReport', ['appCalc.calculation',
-  'appCalc.pricelist',
-  'appCalc.ni',
-  'appCalc.Common',
-  'appCalc.commonDirectives',
-  'appCalc.jobReportService']);
+    app.config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.when('/view/jobReport', {
+            templateUrl: 'view/jobReport/jobReport.html',
+            controller: 'JobReportCtrl'
+        });
+    }]);
 
-app.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/view/jobReport', {
-    templateUrl: 'view/jobReport/jobReport.html',
-    controller: 'JobReportCtrl'
-  });
-}]);
+    app.controller('JobReportCtrl', ['$scope', 'Calculation', 'Ni', 'Pricelist', 'Common',
+        'JobReport', 'Members',
+        function ($scope, Calculation, Ni, Pricelist, Common, JobReport, Members) {
+            $scope.calculation = Calculation;
+            $scope.pricelist = Pricelist;
+            $scope.common = Common;
+            $scope.members = Members;
+            $scope.jobReport = JobReport;
+            $scope.jobReport.refreshJobs(Calculation.jobs);
 
-app.controller('JobReportCtrl', ['$scope', 'Calculation', 'Ni', 'Pricelist', 'Common', 'JobReport',
- function($scope, Calculation, Ni, Pricelist, Common, JobReport) {
-	$scope.calculation = Calculation;
-	$scope.pricelist = Pricelist;
-	$scope.common = Common;
-	$scope.jobReport = JobReport;
-	$scope.jobReport.refreshJobs(Calculation.jobs);	
-	
-	$scope.lengthBottom = $scope.jobReport.workers.length+7;
-}]);
+            $scope.lengthBottom = $scope.jobReport.workers.length + 7;
+
+            $scope.addWorker = function () {
+                Members.addWorker(JobReport.jobs);
+            }
+        }
+    ]);
+
+})();

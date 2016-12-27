@@ -1,214 +1,218 @@
-<div class="tab-pane calc" >
-	<div class = "head col-sm-6">
-		<div class="head_info">
-			<span>Номер КП</span>
-			<input class="info_input" type = "text" ng-model="calculation.number_kp"></input>
-		</div>
-		<div class="head_info">
-			<span>Объект</span>
-			<input class="info_input" type = "text" ng-model='calculation.object'></input>
-		</div>
-		<div class="head_info">
-			<span>Заказчик</span>
-			<input class="info_input" type = "text" ng-model='calculation.customer_name'></input>
-		</div>
-		<div class="head_info">
-			<span>Адрес</span>
-			<input class="info_input" type = "text" ng-model='calculation.adress'></input>
-		</div>
-		<div class="head_info">
-			<span>Телефон</span>
-			<input class="info_input" type = "tel" ng-model='calculation.phone'></input>
-		</div>	
-		<div class="head_info">
-			<span>Менеджер</span>
-			<input class="info_input" type = "text" ng-model='calculation.manager'></input>
-		</div>
-		<div class="head_info">
-			<span>Проектировщик</span>
-			<input class="info_input" type = "text" ng-model='calculation.projectDesigner'></input>
-		</div>
-		<div class="head_info">
-			<span>Бригадир</span>
-			<input class="info_input" type = "text" ng-model='jobReport.brigadier'></input>
-		</div>
-		<div class="workers">
-			<h5>Монтажники</h5>
-			<div class = "add_row">
-				<button type="button" class="btn btn-xs btn-primary" ng-click="jobReport.addWorker(); lengthBottom = lengthBottom+1">
-					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-				</button>
-			</div>
-			<div class="head_info workers-list" ng-repeat="worker in jobReport.workers">
-				<input class="info_input" type = "text" ng-model='worker.name' placeholder="Имя"></input>
-				<input class="info_input" type = "text" ng-model='worker.info' placeholder="Телефон, e-mail"></input>
-				<div class = "btn-delete">
-					<button type="button" class="btn btn-xs btn-danger" ng-click="jobReport.workers.splice($index, 1)">
-						<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-					</button>
-				</div>
-			</div>
-		</div>
-						
-	</div>
-	<div class="stats head col-sm-6">
-		<table class="stats-table">
-			<tr>
-				<th class="no-border"></th>
-				<th class="bottom-border">Чел*ч</th>
-				<th class="bottom-border">грн</th>
-			</tr>
-			<tr>
-				<td class="no-border">Работ по плану</td>
-				<td class="bottom-border">{{calculation.jobs.human_hour.toFixed(2)}}</td>
-				<td class="bottom-border">{{calculation.jobs.sum.toFixed(2)}}</td>
-			</tr>
-			<tr>
-				<td class="no-border">Выполнено  по нормам</td>
-				<td class="bottom-border">{{jobReport.jobs.human_hour.toFixed(2)}}</td>
-				<td class="bottom-border">{{jobReport.jobs.sum.toFixed(2)}}</td>
-			</tr>
-			<tr>
-				<td class="no-border">Затрачено по факту</td>
-				<td class="no-border"></td>
-				<td class="bottom-border">{{jobReport.workers.plan.fact_hour.toFixed(2)}}</td>
-			</tr>
-			<tr>
-				<td class="no-border">Процент выполнения договора</td>
-				<td class="bottom-border">{{jobReport.effective_hour.toFixed(2)}} %</td>
-				<td class="bottom-border">{{jobReport.effective_money.toFixed(2)}} %</td>
-			</tr>
-		</table>		
-	</div>
-	<div class="jobs_table table_calc col-sm-12">
-		<h3>Отчет по работам</h3>
-		<div class = "add_row">
-			<button type="button" class="btn btn-xs btn-primary" ng-click="jobReport.addJob()">
-				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-			</button>
-		</div>
-		<div class="human-hour">
-			<span>Всего чел*ч: {{jobReport.jobs.human_hour}}</span>
-			<span class="sum_human_hour"></span>
-		</div>	
+<div class="tab-pane calc">
+    <div class="head col-sm-6">
+        <div class="head_info">
+            <span>Номер КП
+            </span>
+            <input class="info_input" type="text" ng-model="calculation.number_kp"></input>
+        </div>
+        <div class="head_info">
+            <span>Объект</span>
+            <input class="info_input" type="text" ng-model='calculation.object'></input>
+        </div>
+        <div class="head_info">
+            <span>Заказчик</span>
+            <input class="info_input" type="text" ng-model='calculation.customer_name'></input>
+        </div>
+        <div class="head_info">
+            <span>Адрес</span>
+            <input class="info_input" type="text" ng-model='calculation.adress'></input>
+        </div>
+        <div class="head_info">
+            <span>Телефон</span>
+            <input class="info_input" type="tel" ng-model='calculation.phone'></input>
+        </div>
+        <div class="head_info">
+            <span>Менеджер</span>
+            <input class="info_input" type="text" ng-model='calculation.manager.name'></input>
+        </div>
+        <div class="head_info">
+            <span>Проектировщик</span>
+            <input class="info_input" type="text" ng-model='calculation.projectDesigner.name'></input>
+        </div>
+        <div class="head_info">
+            <span>Бригадир</span>
+            <input class="info_input" type="text" ng-model='jobReport.brigadier.name'></input>
+        </div>
+        <div class="workers">
+            <h5>Монтажники</h5>
+            <div class="add_row">
+                <button type="button" class="btn btn-xs btn-primary" ng-click="addWorker(); lengthBottom = lengthBottom+1">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="head_info workers-list" ng-repeat="worker in jobReport.workers">
+                <input class="info_input" type="text" ng-model='worker.name' placeholder="Имя"></input>
+                <input class="info_input" type="text" ng-model='worker.info' placeholder="Телефон, e-mail"></input>
+                <div class="btn-delete">
+                    <button type="button" class="btn btn-xs btn-danger" ng-click="jobReport.workers.splice($index, 1)">
+                        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
 
-		<search-job class="row" search-source="pricelist" search-target="jobReport" promise="pricelist.loadPrice.promise"></search-job>
-		
-		<table class="jobReport-table table-jobs">
-			<tr class="head_table">
-				<th rowspan="2">№</th>
-				<th rowspan="2">Наименование</th>
-				<th rowspan="2">Разряд работ</th>
-				<th rowspan="2">ед.изм.</th>
-				<th rowspan="2">норма, чел*ч</th>
-				<th rowspan="2">амортизация</th>
-				<th class="worker-info"ng-repeat="worker in jobReport.workers">{{worker.name}}/{{worker.info}}</th>
-				<th rowspan="2">кол-во проект</th>
-				<th rowspan="2">кол-во факт</th>
-			</tr>
-			<tr>
-				<th ng-repeat="worker in jobReport.workers" class="worker worker-head">
-					<div class="worker-container">
-						<div class="worker-content">Кол-во</div>
-						<div class="worker-content">Закрыл амортизации</div>
-						<div class="worker-content">Закрыл часов</div>
-						<div class="worker-content">З/п грн</div>						
-					</div>
-				</th>
-				
-			</tr>
-			<tr class="job clcAddRow" ng-repeat="job in jobReport.jobs" ng-keyup="common.endEnter($event)">
-				<td>{{job.index}}</td>
-				<td>					
-					<input-div target="job.name"></input-div>
-				</td>
-				<td><input type = "text" ng-model="job.rank"/></td>
-				<td><input type = "text" ng-model="job.measure"/></td>
-				<td><input type = "text" ng-model="job.human_hour" ng-blur="jobReport.calculate()"/></td>
-				<td><input type = "text" ng-model="job.amortization" ng-blur="jobReport.calculate()"/></td>
-				<td ng-repeat="worker in jobReport.workers" class="worker">
-					<div class="worker-container">
-						<div class="worker-content">
-							<input type = "text" ng-model="worker.number[job.index-1]" class="number"
-								ng-blur="jobReport.calculate()"/>
-						</div>
-						<div class="worker-content">{{worker.amortization[job.index-1]}}</div>
-						<div class="worker-content">{{worker.hour[job.index-1]}}</div>
-						<div class="worker-content">{{worker.salary[job.index-1]}}</div>												
-					</div>
-				</td>
-				<td>{{job.number_project}}</td>
-				<td>{{job.number}}</td>				
-				<td class = "btn-delete">
-					<button type="button" class="btn btn-xs btn-danger" ng-click="jobReport.deleteJob(job)">
-						<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-					</button>
-				</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td colspan = '{{lengthBottom-jobReport.workers.length-2}}'>Начислено з/п, грн</td>
-				<td ng-repeat="worker in jobReport.workers">{{worker.salary.sum}}</td>
-				<td colspan="2"></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td colspan = '{{lengthBottom-jobReport.workers.length-2}}'>Премия (довольный заказчик), грн</td>
-				<td ng-repeat="worker in jobReport.workers">{{worker.promotion_client}}</td>
-				<td colspan="2"></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td colspan = '{{lengthBottom-jobReport.workers.length-2}}'>Итого, грн</td>
-				<td ng-repeat="worker in jobReport.workers">{{worker.total_first}}</td>
-				<td colspan="2"></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td colspan = '{{lengthBottom-jobReport.workers.length-2}}'>Всего закрыто часов, ч</td>
-				<td ng-repeat="worker in jobReport.workers">{{worker.hour.sum}}</td>
-				<td colspan="2"></td>
-			</tr>			
-		</table>
-	</div>
-	<div class="jr-workers-plan">
-		<div class = "add_row">
-			<button type="button" class="btn btn-xs btn-primary" ng-click="jobReport.addDay()">
-				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-			</button>
-		</div>
-		<table class="table-jobs">
-			<tr>
-				<th class="wp-small"rowspan = "2">День</th>
-				<th class="wp-small" rowspan = "2">Дата</th>
-				<th class="wp-small" rowspan = "2">План чел</th>
-				<th class="wp-small" rowspan = "2">План часов</th>
-				<th class="worker-fact-time"  ng-repeat="worker in jobReport.workers">{{worker.name}}/{{worker.info}}</th>
-				<th class="wp-small" rowspan = "2">Факт, чел*ч</th>
-				<th class="wp-big" rowspan = "2">Комментарии</th>
-			</tr>
-			<tr class="worker-fact-time">
-				<th ng-repeat="worker in jobReport.workers">Время на объекте, ч</th>
-			</tr>
-			<tr ng-repeat="day in jobReport.workers.plan">
-				<td>{{day.index}}</td>
-				<td><input type = "date" placeholder="гггг-ММ-дд" ng-model="day.date"/></td>
-				<td><input type = "text" ng-model="day.project_people" ng-change="jobReport.workersCalculate()"/></td>
-				<td><input type = "text" ng-model="day.project_hour" ng-change="jobReport.workersCalculate()"/></td>
-				<td	class="worker-fact-time" ng-repeat = "worker in jobReport.workers">
-					<input class="worker-fact-time" type = "text" 
-						ng-model="worker.fact_hour[day.index-1]" ng-change="jobReport.workersCalculate()"/>
-				</td>
-				<td>{{day.fact_hour}}</td>
-				<td><input-div target="jobReport.workers.plan[day.index-1].commentary"></input-div></td>
-			</tr>
-			<tr>
-				<td colspan = "3">Всего</td>				
-				<td>{{jobReport.workers.plan.project_hour}}</td>
-				<td ng-repeat = "worker in jobReport.workers">{{worker.sum_hour}}</td>
-				<td>{{jobReport.workers.plan.fact_hour}}</td>
-				<td></td>
-			</tr>
-		</table>
-	</div>
+    </div>
+    <div class="stats head col-sm-6">
+        <table class="stats-table">
+            <tr>
+                <th class="no-border"></th>
+                <th class="bottom-border">Чел*ч</th>
+                <th class="bottom-border">грн</th>
+            </tr>
+            <tr>
+                <td class="no-border">Работ по плану</td>
+                <td class="bottom-border">{{calculation.jobs.human_hour.toFixed(2)}}</td>
+                <td class="bottom-border">{{calculation.jobs.sum.toFixed(2)}}</td>
+            </tr>
+            <tr>
+                <td class="no-border">Выполнено по нормам</td>
+                <td class="bottom-border">{{jobReport.jobs.human_hour.toFixed(2)}}</td>
+                <td class="bottom-border">{{jobReport.jobs.sum.toFixed(2)}}</td>
+            </tr>
+            <tr>
+                <td class="no-border">Затрачено по факту</td>
+                <td class="no-border"></td>
+                <td class="bottom-border">{{jobReport.workers.plan.fact_hour.toFixed(2)}}</td>
+            </tr>
+            <tr>
+                <td class="no-border">Процент выполнения договора</td>
+                <td class="bottom-border">{{jobReport.effective_hour.toFixed(2)}}
+                    %</td>
+                <td class="bottom-border">{{jobReport.effective_money.toFixed(2)}}
+                    %</td>
+            </tr>
+        </table>
+    </div>
+    <div class="jobs_table table_calc col-sm-12">
+        <h3>Отчет по работам</h3>
+        <div class="add_row">
+            <button type="button" class="btn btn-xs btn-primary" ng-click="jobReport.addJob()">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="human-hour">
+            <span>Всего чел*ч:
+                {{jobReport.jobs.human_hour}}</span>
+            <span class="sum_human_hour"></span>
+        </div>
+
+        <search-job class="row" search-source="pricelist" search-target="jobReport" promise="pricelist.loadPrice.promise"></search-job>
+
+        <table class="jobReport-table table-jobs">
+            <tr class="head_table">
+                <th rowspan="2">№</th>
+                <th rowspan="2">Наименование</th>
+                <th rowspan="2">Разряд работ</th>
+                <th rowspan="2">ед.изм.</th>
+                <th rowspan="2">норма, чел*ч</th>
+                <th rowspan="2">амортизация</th>
+                <th class="worker-info" ng-repeat="worker in jobReport.workers">{{worker.name}}/{{worker.info}}</th>
+                <th rowspan="2">кол-во проект</th>
+                <th rowspan="2">кол-во факт</th>
+            </tr>
+            <tr>
+                <th ng-repeat="worker in jobReport.workers" class="worker worker-head">
+                    <div class="worker-container">
+                        <div class="worker-content">Кол-во</div>
+                        <div class="worker-content">Закрыл амортизации</div>
+                        <div class="worker-content">Закрыл часов</div>
+                        <div class="worker-content">З/п грн</div>
+                    </div>
+                </th>
+
+            </tr>
+            <tr class="job clcAddRow" ng-repeat="job in jobReport.jobs" ng-keyup="common.endEnter($event)">
+                <td>{{job.index}}</td>
+                <td>
+                    <input-div target="job.name"></input-div>
+                </td>
+                <td><input type="text" ng-model="job.rank"/></td>
+                <td><input type="text" ng-model="job.measure"/></td>
+                <td><input type="text" ng-model="job.human_hour" ng-blur="jobReport.calculate()"/></td>
+                <td><input type="text" ng-model="job.amortization" ng-blur="jobReport.calculate()"/></td>
+                <td ng-repeat="worker in jobReport.workers" class="worker">
+                    <div class="worker-container">
+                        <div class="worker-content">
+                            <input type="text" ng-model="worker.number[job.index-1]" class="number" ng-blur="jobReport.calculate()"/>
+                        </div>
+                        <div class="worker-content">{{worker.amortization[job.index-1]}}</div>
+                        <div class="worker-content">{{worker.hour[job.index-1]}}</div>
+                        <div class="worker-content">{{worker.salary[job.index-1]}}</div>
+                    </div>
+                </td>
+                <td>{{job.number_project}}</td>
+                <td>{{job.number}}</td>
+                <td class="btn-delete">
+                    <button type="button" class="btn btn-xs btn-danger" ng-click="jobReport.deleteJob(job)">
+                        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan='{{lengthBottom-jobReport.workers.length-2}}'>Начислено з/п, грн</td>
+                <td ng-repeat="worker in jobReport.workers">{{worker.salary.sum}}</td>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan='{{lengthBottom-jobReport.workers.length-2}}'>Премия (довольный заказчик), грн</td>
+                <td ng-repeat="worker in jobReport.workers">{{worker.promotion.value}}</td>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan='{{lengthBottom-jobReport.workers.length-2}}'>Итого, грн</td>
+                <td ng-repeat="worker in jobReport.workers">{{worker.total}}</td>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan='{{lengthBottom-jobReport.workers.length-2}}'>Всего закрыто часов, ч</td>
+                <td ng-repeat="worker in jobReport.workers">{{worker.hour.sum}}</td>
+                <td colspan="2"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="jr-workers-plan">
+        <div class="add_row">
+            <button type="button" class="btn btn-xs btn-primary" ng-click="jobReport.addDay()">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </button>
+        </div>
+        <table class="table-jobs">
+            <tr>
+                <th class="wp-small" rowspan="2">День</th>
+                <th class="wp-small" rowspan="2">Дата</th>
+                <th class="wp-small" rowspan="2">План чел</th>
+                <th class="wp-small" rowspan="2">План часов</th>
+                <th class="worker-fact-time" ng-repeat="worker in jobReport.workers">{{worker.name}}/{{worker.info}}</th>
+                <th class="wp-small" rowspan="2">Факт, чел*ч</th>
+                <th class="wp-big" rowspan="2">Комментарии</th>
+            </tr>
+            <tr class="worker-fact-time">
+                <th ng-repeat="worker in jobReport.workers">Время на объекте, ч</th>
+            </tr>
+            <tr ng-repeat="day in jobReport.workers.plan">
+                <td>{{day.index}}</td>
+                <td><input type="date" placeholder="гггг-ММ-дд" ng-model="day.date"/></td>
+                <td><input type="text" ng-model="day.project_people" ng-change="jobReport.workersCalculate()"/></td>
+                <td><input type="text" ng-model="day.project_hour" ng-change="jobReport.workersCalculate()"/></td>
+                <td class="worker-fact-time" ng-repeat="worker in jobReport.workers">
+                    <input class="worker-fact-time" type="text" ng-model="worker.fact_hour[day.index-1]" ng-change="jobReport.workersCalculate()"/>
+                </td>
+                <td>{{day.fact_hour}}</td>
+                <td>
+                    <input-div target="jobReport.workers.plan[day.index-1].commentary"></input-div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">Всего</td>
+                <td>{{jobReport.workers.plan.project_hour}}</td>
+                <td ng-repeat="worker in jobReport.workers">{{worker.sum_hour}}</td>
+                <td>{{jobReport.workers.plan.fact_hour}}</td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
 </div>

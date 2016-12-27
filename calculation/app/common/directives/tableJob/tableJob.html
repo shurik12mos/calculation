@@ -8,10 +8,10 @@
 	<div class="human-hour">
 		<span>Всего чел*ч: {{source.jobs.human_hour.toFixed(2)}}</span>
 		<span class="sum_human_hour"></span>
-	</div>	
+	</div>
 
 	<search-job class="row" search-source="price" search-target="source" promise="price.loadPrice.promise"></search-job>
-	
+
 	<table class="table-jobs">
 		<tr class="head_table">
 			<th>№</th>
@@ -48,7 +48,7 @@
 		<tr class="jobs_sum">
 			<td></td>
 			<td colspan = '6'>Итого строительно-монтажные и пусконаладочные работы, грн</td>
-			<td>{{source.jobs.sum}}</td>
+			<td>{{source.jobs.total}}</td>
 		</tr>
 	</table>
 </div>
