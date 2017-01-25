@@ -9,16 +9,9 @@ var gulp = require('gulp'),
     gulpif = require('gulp-if'),
     uglify = require('gulp-uglify'),
     cleanCss = require('gulp-clean-css'),
-	gulpIgnore = require('gulp-ignore');;
+	gulpIgnore = require('gulp-ignore');
  
-/*gulp.task('js', function() {
-   gulp.src('./app/src/js/*.js')    
-    .pipe(concat('scriptConcat.js'))	
-	.pipe(rename('scripts.js'))
-    .pipe(gulp.dest('./app/dest/js/'))	
-	.pipe(notify('Done js!'));
-});
-*/
+
 gulp.task('scss', function() {
 	
 	gulp.src('app/scss/*.scss')	
